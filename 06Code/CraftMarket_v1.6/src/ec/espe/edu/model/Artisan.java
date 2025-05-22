@@ -17,13 +17,13 @@ public class Artisan {
 
 
     // Basic constructor
-    public Artisan(int id, String name) {
+    public Artisan(String name) {
         this.id = id;
         this.name = name;
         this.products = new ArrayList<>();
     }
 
-    Artisan(String artisanName) {
+    Artisan(int id, String artisanName) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     public String getName(){

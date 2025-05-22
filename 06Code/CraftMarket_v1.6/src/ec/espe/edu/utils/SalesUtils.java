@@ -33,14 +33,13 @@ public class SalesUtils {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");
-                if (fields.length == 6) {
+                if (fields.length == 5) {
                     String product = fields[0];
                     float price = Float.parseFloat(fields[1]);
                     int quantity = Integer.parseInt(fields[2]);
                     float total = Float.parseFloat(fields[3]);
                     String artisan = fields[4];
-                    String date=fields[5];
-                    sales.add(new SalesReport(product, price, quantity, total, artisan, date));
+                    sales.add(new SalesReport(product, price, quantity, total, artisan ));
                 }
             }
         } catch (FileNotFoundException e) {
