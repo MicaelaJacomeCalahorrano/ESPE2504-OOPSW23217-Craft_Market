@@ -219,7 +219,6 @@ public class Menu {
                         System.out.println("No hay ventas registradas.");
                     } else {
                         for (ec.espe.edu.model.SalesReport s : sales) {
-                            // System.out.println(s.getDisplayString());
                         }
                     }
                     break;
