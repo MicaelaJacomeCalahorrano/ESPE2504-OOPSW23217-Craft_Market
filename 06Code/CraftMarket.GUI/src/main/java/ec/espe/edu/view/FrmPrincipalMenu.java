@@ -30,10 +30,10 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        mnuAttendance = new javax.swing.JMenu();
+        itmMarkAttendance = new javax.swing.JMenuItem();
+        itmViewAttendanceHistory = new javax.swing.JMenuItem();
+        itmPenalty = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -62,18 +62,18 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Asistencia");
+        mnuAttendance.setText("Asistencia");
 
-        jMenuItem2.setText("Marcar Asistencia");
-        jMenu2.add(jMenuItem2);
+        itmMarkAttendance.setText("Marcar Asistencia");
+        mnuAttendance.add(itmMarkAttendance);
 
-        jMenuItem3.setText("Ver historial de asistencia");
-        jMenu2.add(jMenuItem3);
+        itmViewAttendanceHistory.setText("Ver historial de asistencia");
+        mnuAttendance.add(itmViewAttendanceHistory);
 
-        jMenuItem4.setText("Penalización");
-        jMenu2.add(jMenuItem4);
+        itmPenalty.setText("Penalización");
+        mnuAttendance.add(itmPenalty);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(mnuAttendance);
 
         jMenu3.setText("Ventas");
 
@@ -182,9 +182,11 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itmMarkAttendance;
+    private javax.swing.JMenuItem itmPenalty;
+    private javax.swing.JMenuItem itmViewAttendanceHistory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -193,13 +195,11 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenu mnuAttendance;
     // End of variables declaration//GEN-END:variables
 }

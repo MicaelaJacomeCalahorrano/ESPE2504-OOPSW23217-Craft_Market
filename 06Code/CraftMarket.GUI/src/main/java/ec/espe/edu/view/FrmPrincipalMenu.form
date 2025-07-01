@@ -19,22 +19,22 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="mnuAttendance">
           <Properties>
             <Property name="text" type="java.lang.String" value="Asistencia"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="itmMarkAttendance">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Marcar Asistencia"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="itmViewAttendanceHistory">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ver historial de asistencia"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="itmPenalty">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Penalizaci&#xf3;n"/>
               </Properties>
