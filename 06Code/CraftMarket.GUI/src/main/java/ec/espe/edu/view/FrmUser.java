@@ -1,4 +1,5 @@
 package ec.espe.edu.view;
+
 import ec.espe.edu.model.controller.UserController;
 import javax.swing.JOptionPane;
 
@@ -21,8 +22,10 @@ public class FrmUser extends javax.swing.JFrame {
             if (UserController.login(username, password)) {
                 String artisanName = UserController.getArtisanName(username, password);
                 JOptionPane.showMessageDialog(this, "Bienvenido, " + artisanName);
+                FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(artisanName);
+                frmPrincipalMenu.setVisible(true);
+                frmPrincipalMenu.setLocationRelativeTo(null);
                 this.dispose();
-                new FrmMenu(artisanName).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
             }
@@ -103,6 +106,11 @@ public class FrmUser extends javax.swing.JFrame {
         );
 
         jButton1.setText("Continuar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -145,8 +153,12 @@ public class FrmUser extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-      
- public static void main(String args[]) {
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             new FrmUser().setVisible(true);
         });
