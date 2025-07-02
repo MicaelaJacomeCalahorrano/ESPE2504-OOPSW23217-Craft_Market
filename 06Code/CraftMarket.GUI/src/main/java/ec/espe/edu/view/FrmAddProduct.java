@@ -77,7 +77,7 @@ public class FrmAddProduct extends javax.swing.JFrame {
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,11 +197,13 @@ public class FrmAddProduct extends javax.swing.JFrame {
             int id = Integer.parseInt(txtId.getText());
             double price = Double.parseDouble(txtPrice.getText());
             int stock = Integer.parseInt(txtStock.getText());
+            String owner;
+            
 
             // Crear y guardar producto
-            Product product = new Product(id, txtName.getText(), price, stock);
+            //Product product = new Product(id, txtName.getText(), price, stock, owner);
             ProductDataAccessObject productDataAccessObject = new ProductDataAccessObject();
-            productDataAccessObject.addProduct(product);
+           // productDataAccessObject.addProduct(product);
 
             JOptionPane.showMessageDialog(this, "Producto guardado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             this.dispose(); // Cerrar ventana

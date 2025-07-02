@@ -254,13 +254,24 @@ public class FrmRegisterSale extends javax.swing.JFrame {
 
     private void btnSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaleActionPerformed
         // TODO add your handling code here:
-        String productId = txtProductId.getText().trim();
-        int quantity = (int) spnQuantity.getValue();
-
-        if (productId.isEmpty()) {
+        String productIdText = txtProductId.getText();
+        
+        if (productIdText.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favoringrese el ID del producto.");
             return;
         }
+        
+        int productId;
+        
+        try {
+            productId = Integer.parseInt(productIdText);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(rootPane, "El ID debe ser numeros enteros");
+            return;
+        }
+        int quantity = (int) spnQuantity.getValue();
+
+        
 
         Product product = Product.findById(productId);
 
@@ -274,8 +285,8 @@ public class FrmRegisterSale extends javax.swing.JFrame {
             return;
         }
 
-        float unitPrice = product.getUnitPrice();
-        float total = unitPrice * quantity;
+        double unitPrice = product.getUnitPrice();
+        double total = unitPrice * quantity;
         String artisanName = product.getOwner();
 
         SalesReport sale = new SalesReport(product.getName(), unitPrice, quantity, total, artisanName);

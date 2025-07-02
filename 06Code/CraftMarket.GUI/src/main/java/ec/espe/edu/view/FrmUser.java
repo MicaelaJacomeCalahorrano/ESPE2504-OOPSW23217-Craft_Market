@@ -6,6 +6,7 @@ package ec.espe.edu.view;
 
 import ec.espe.edu.model.controller.UserController;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -22,6 +23,7 @@ public class FrmUser extends javax.swing.JFrame {
         jButton1.addActionListener(evt -> {
             String username = txtUser.getText();
             String password = new String(pswPassword.getPassword());
+            
 
             if (UserController.login(username, password)) {
                 String artisanName = UserController.getArtisanName(username, password);
@@ -34,6 +36,10 @@ public class FrmUser extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
             }
         });
+    }
+
+    public FrmUser(JTextField txtUser) {
+        this.txtUser = txtUser;
     }
 
     /**

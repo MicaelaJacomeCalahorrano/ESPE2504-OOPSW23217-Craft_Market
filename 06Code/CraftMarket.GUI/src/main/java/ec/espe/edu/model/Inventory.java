@@ -28,7 +28,7 @@ public class Inventory {
         FindIterable<Document> documents = collection.find();
 
         for (Document doc : documents) {
-            String id = doc.getString("id");
+            int id = doc.getInteger("id");
             String name = doc.getString("name");
 
             float unitPrice;

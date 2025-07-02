@@ -15,13 +15,13 @@ import org.bson.Document;
 public class SalesReport {
 
     private String productName;
-    private float unitPrice;
+    private double unitPrice;
     private int quantity;
-    private float total;
+    private double total;
     private String artisanName;
     private LocalDate saleDate;
 
-    public SalesReport(String productName, float unitPrice, int quantity, float total, String artisanName) {
+    public SalesReport(String productName, double unitPrice, int quantity, double total, String artisanName) {
         this.productName = productName;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
@@ -39,9 +39,11 @@ public class SalesReport {
         this.productName = productName;
     }
 
-    public float getUnitPrice() {
+    public double getUnitPrice() {
         return unitPrice;
     }
+
+    
 
     public void setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
@@ -55,9 +57,11 @@ public class SalesReport {
         this.quantity = quantity;
     }
 
-    public float getTotal() {
+    public double getTotal() {
         return total;
     }
+
+    
 
     public void setTotal(float total) {
         this.total = total;
@@ -83,7 +87,7 @@ public class SalesReport {
         return productName + "," + unitPrice + "," + quantity + "," + total + "," + artisanName;
     }
 
-    public static void registerSale(Inventory inventory, String productId, int quantity) {
+    public static void registerSale(Inventory inventory, int productId, int quantity) {
         Product product = Product.findById(productId);
         if (product == null) {
             System.out.println("Producto no encontrado.");
@@ -94,7 +98,7 @@ public class SalesReport {
             return;
         }
 
-        float total = product.getUnitPrice() * quantity;
+        double total = product.getUnitPrice() * quantity;
         String artisanName = product.getOwner();
 
         SalesReport sale = new SalesReport(product.getName(), product.getUnitPrice(), quantity, total, artisanName);

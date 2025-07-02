@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDataAccessObject {
+    private int id;
+    private String product;
+    private double price;
+    private int stock;
+    private String artisan;
+    
 
     private final MongoCollection<Document> collection;
 
@@ -21,11 +27,20 @@ public class ProductDataAccessObject {
        this.collection = MongoConnection.connect().getCollection("products");
     }
 
+    public ProductDataAccessObject(int id, String product, double price, int stock, MongoCollection<Document> collection) {
+        this.id = id;
+        this.product = product;
+        this.price = price;
+        this.stock = stock;
+        this.collection = MongoConnection.connect().getCollection("products");
+    }
+    
+
     
     public void addProduct(Product product) {
         Document doc = new Document("id", product.getId())
                 .append("name", product.getName())
-                .append("price", product.getPrice())
+                .append("price", product.getUnitPrice())
                 .append("stock", product.getStock());
         collection.insertOne(doc);
     }
@@ -38,7 +53,8 @@ public class ProductDataAccessObject {
                 doc.getInteger("id"),
                 doc.getString("name"),
                 doc.getDouble("price"),
-                doc.getInteger("stock")
+                doc.getInteger("stock"),
+                doc.getString("artisan")
             ));
         }
         return products;
@@ -50,8 +66,9 @@ public class ProductDataAccessObject {
             Filters.eq("id", product.getId()),
             new Document("$set", new Document()
                 .append("name", product.getName())
-                .append("price", product.getPrice())
+                .append("price", product.getUnitPrice())
                 .append("stock", product.getStock())
+                .append("Artisan", product.getOwner())
             )
         );
     }
@@ -60,4 +77,5 @@ public class ProductDataAccessObject {
     public void deleteProduct(int id) {
         collection.deleteOne(Filters.eq("id", id));
     }
+    
 }

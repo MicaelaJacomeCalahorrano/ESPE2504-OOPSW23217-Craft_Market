@@ -48,7 +48,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         itmReport = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        ItmMnuPersonalInventory = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -131,8 +131,13 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         jMenuItem8.setText("Inventario general");
         jMenu4.add(jMenuItem8);
 
-        jMenuItem9.setText("Inventario personal");
-        jMenu4.add(jMenuItem9);
+        ItmMnuPersonalInventory.setText("Inventario personal");
+        ItmMnuPersonalInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItmMnuPersonalInventoryActionPerformed(evt);
+            }
+        });
+        jMenu4.add(ItmMnuPersonalInventory);
 
         jMenuBar1.add(jMenu4);
 
@@ -222,6 +227,14 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
          this.dispose();
     }//GEN-LAST:event_itmPenaltyActionPerformed
 
+    private void ItmMnuPersonalInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItmMnuPersonalInventoryActionPerformed
+        // TODO add your handling code here:
+        FrmPersonalInventory frmPersonalInventory = new FrmPersonalInventory();
+        frmPersonalInventory.setVisible(true);
+        setVisible(false);
+       
+    }//GEN-LAST:event_ItmMnuPersonalInventoryActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -258,6 +271,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ItmMnuPersonalInventory;
     private javax.swing.JMenuItem itmFilter;
     private javax.swing.JMenuItem itmMarkAttendance;
     private javax.swing.JMenuItem itmPenalty;
@@ -275,7 +289,6 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu mnuAttendance;
     // End of variables declaration//GEN-END:variables
 }

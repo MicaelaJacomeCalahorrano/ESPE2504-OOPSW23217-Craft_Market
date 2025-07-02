@@ -14,13 +14,13 @@ import org.bson.Document;
  */
 public class Product {
 
-    private String id;
+    private int id;
     private String name;
-    private float unitPrice;
+    private double unitPrice;
     private int stock;
     private String owner;
 
-    public Product(String id, String name, float unitPrice, int stock, String owner) {
+    public Product(int id, String name, double unitPrice, int stock, String owner) {
         this.id = id;
         this.name = name;
         this.unitPrice = unitPrice;
@@ -28,11 +28,13 @@ public class Product {
         this.owner = owner;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,9 +46,11 @@ public class Product {
         this.name = name;
     }
 
-    public float getUnitPrice() {
-        return unitPrice;
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
     }
+
+    
 
     public void setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
@@ -63,6 +67,11 @@ public class Product {
     public String getOwner() {
         return owner;
     }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+    
 
     public void setOwner(String owner) {
         this.owner = owner;
@@ -81,7 +90,7 @@ public class Product {
                 float unitPrice = unitPriceNumber.floatValue();
 
                 products.add(new Product(
-                        doc.getString("id"),
+                        doc.getInteger("id"),
                         doc.getString("name"),
                         unitPrice,
                         doc.getInteger("stock"),
@@ -96,7 +105,7 @@ public class Product {
 
     public static void addProduct(Scanner scanner, String artisanName) {
         System.out.print("ID: ");
-        String id = scanner.nextLine();
+        int id = scanner.nextInt();
 
         System.out.print("Nombre: ");
         String name = scanner.nextLine();
@@ -156,7 +165,7 @@ public class Product {
         collection.insertOne(doc);
     }
 
-    public static void updateProductStock(String productId, int newStock) {
+    public static void updateProductStock(int productId, int newStock) {
         MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
         collection.updateOne(new Document("id", productId),
                 new Document("$set", new Document("stock", newStock)));
@@ -173,7 +182,7 @@ public class Product {
         collection.deleteOne(new Document("id", productId));
     }
 
-    public static Product findById(String productId) {
+    public static Product findById(int productId) {
         MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
         Document doc = collection.find(new Document("id", productId)).first();
         if (doc == null) {
@@ -184,7 +193,7 @@ public class Product {
         float unitPrice = unitPriceNumber.floatValue();
 
         return new Product(
-                doc.getString("id"),
+                doc.getInteger("id"),
                 doc.getString("name"),
                 unitPrice,
                 doc.getInteger("stock"),

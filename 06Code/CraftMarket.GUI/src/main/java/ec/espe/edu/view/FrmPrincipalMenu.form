@@ -91,10 +91,13 @@
                 <Property name="text" type="java.lang.String" value="Inventario general"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+            <MenuItem class="javax.swing.JMenuItem" name="ItmMnuPersonalInventory">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Inventario personal"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ItmMnuPersonalInventoryActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
