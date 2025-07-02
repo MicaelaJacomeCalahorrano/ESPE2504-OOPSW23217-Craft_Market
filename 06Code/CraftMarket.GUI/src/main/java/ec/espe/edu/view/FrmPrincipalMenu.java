@@ -89,6 +89,11 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         mnuAttendance.add(itmViewAttendanceHistory);
 
         itmPenalty.setText("Penalización");
+        itmPenalty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmPenaltyActionPerformed(evt);
+            }
+        });
         mnuAttendance.add(itmPenalty);
 
         jMenuBar1.add(mnuAttendance);
@@ -208,6 +213,14 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         frmCheckAttendanceHistory.setLocationRelativeTo(null);
          this.dispose();
     }//GEN-LAST:event_itmViewAttendanceHistoryActionPerformed
+
+    private void itmPenaltyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmPenaltyActionPerformed
+       String artisanUsername = name;
+        FrmPenalty frmPenalty =new FrmPenalty(artisanUsername);
+         frmPenalty.setVisible(true); 
+        frmPenalty.setLocationRelativeTo(null);
+         this.dispose();
+    }//GEN-LAST:event_itmPenaltyActionPerformed
 
     /**
      * @param args the command line arguments

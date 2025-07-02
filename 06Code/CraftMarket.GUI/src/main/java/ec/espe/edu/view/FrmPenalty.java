@@ -4,19 +4,152 @@
  */
 package ec.espe.edu.view;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import ec.espe.edu.model.utils.MongoConnection;
+import org.bson.Document;
+import com.mongodb.client.FindIterable;
+
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+
+import java.text.ParseException; 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList; 
+import java.util.Calendar;
+import java.util.Collections; 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List; 
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import java.awt.print.PrinterException;
+import javax.swing.JTable.PrintMode;
+
 /**
  *
  * @author Michael Chicaiza SOFTCRAF DCCO ESPE
  */
 public class FrmPenalty extends javax.swing.JFrame {
-
+     private String loggedInUsername;
+    private DefaultTableModel tableModel;
+    private final double PENALTY_PER_DAY = 5.00;
     /**
      * Creates new form FrmPenalty
      */
-    public FrmPenalty() {
+    public FrmPenalty(String username) {
+        this.loggedInUsername = username;
         initComponents();
-    }
+        setLocationRelativeTo(null);
+          Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 
+        txtArtesanoPenalty.setText(loggedInUsername);
+        txtArtesanoPenalty.setEditable(false);
+
+        setupTableModel();
+        calculateAndDisplayPenalty();
+        
+        btnReturnPenalty.addActionListener(e -> {
+            this.dispose();
+           
+        });
+    }
+     private void setupTableModel() {
+        tableModel = new DefaultTableModel(new Object[]{"Nro.", "Día Ausente"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        jTable1.setModel(tableModel); 
+    }
+      private void calculateAndDisplayPenalty() {
+        tableModel.setRowCount(0); 
+        int absentDaysCount = 0;
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        List<Date> absentDates = new ArrayList<>(); 
+
+        try {
+            MongoDatabase db = MongoConnection.connect();
+            MongoCollection<Document> attendanceCollection = db.getCollection("Attendance");
+
+            // Obtener el mes y año actual
+            Calendar cal = Calendar.getInstance();
+            int currentMonth = cal.get(Calendar.MONTH);
+            int currentYear = cal.get(Calendar.YEAR);
+
+            
+            Set<String> businessDaysInMonthFormatted = new HashSet<>(); 
+            List<Date> businessDaysInMonth = new ArrayList<>(); 
+            
+            Calendar monthCalendar = Calendar.getInstance();
+            monthCalendar.set(currentYear, currentMonth, 1); 
+            monthCalendar.set(Calendar.HOUR_OF_DAY, 0);
+            monthCalendar.set(Calendar.MINUTE, 0);
+            monthCalendar.set(Calendar.SECOND, 0);
+            monthCalendar.set(Calendar.MILLISECOND, 0);
+
+            while (monthCalendar.get(Calendar.MONTH) == currentMonth) {
+                int dayOfWeek = monthCalendar.get(Calendar.DAY_OF_WEEK);
+               
+                if (dayOfWeek >= Calendar.MONDAY && dayOfWeek <= Calendar.FRIDAY) {
+                    businessDaysInMonthFormatted.add(dateFormat.format(monthCalendar.getTime()));
+                    businessDaysInMonth.add(monthCalendar.getTime()); 
+                }
+                monthCalendar.add(Calendar.DAY_OF_MONTH, 1); 
+            }
+            
+            
+            Collections.sort(businessDaysInMonth);
+
+            
+            Set<String> confirmedAttendanceDatesFormatted = new HashSet<>();
+            Document query = new Document("artisanName", loggedInUsername)
+                                .append("confirmed", true);
+            
+            FindIterable<Document> documents = attendanceCollection.find(query);
+            for (Document doc : documents) {
+                Date attendanceDate = doc.getDate("date");
+                if (attendanceDate != null) {
+                    Calendar attCal = Calendar.getInstance();
+                    attCal.setTime(attendanceDate);
+                    // Solo considerar asistencias del mes y año actual
+                    if (attCal.get(Calendar.MONTH) == currentMonth && attCal.get(Calendar.YEAR) == currentYear) {
+                         confirmedAttendanceDatesFormatted.add(dateFormat.format(attendanceDate));
+                    }
+                }
+            }
+
+          
+            for (Date businessDayDate : businessDaysInMonth) {
+                String formattedBusinessDay = dateFormat.format(businessDayDate);
+                if (!confirmedAttendanceDatesFormatted.contains(formattedBusinessDay)) {
+                  
+                    absentDates.add(businessDayDate); 
+                }
+            }
+            absentDaysCount = absentDates.size();
+            for (int i = 0; i < absentDates.size(); i++) {
+                tableModel.addRow(new Object[]{ (i + 1), dateFormat.format(absentDates.get(i)) });
+            }
+            
+            txtAbsentDay.setText(String.valueOf(absentDaysCount));
+            double totalPenalty = absentDaysCount * PENALTY_PER_DAY;
+            txtPenaltyTotal.setText(String.format("%.2f", totalPenalty));
+
+            if (absentDaysCount == 0) {
+                JOptionPane.showMessageDialog(this, "¡Felicidades! No tienes días ausentes este mes.", "Sin Penalidad", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Se calcularon " + absentDaysCount + " días ausentes con una penalidad total de $" + String.format("%.2f", totalPenalty), "Penalidad Calculada", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al calcular la penalidad: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,8 +266,18 @@ public class FrmPenalty extends javax.swing.JFrame {
         );
 
         btnReturnPenalty.setText("Regresar");
+        btnReturnPenalty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnPenaltyActionPerformed(evt);
+            }
+        });
 
         btnPrintPenalty.setText("Imprimir");
+        btnPrintPenalty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintPenaltyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -183,6 +326,30 @@ public class FrmPenalty extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtArtesanoPenaltyActionPerformed
 
+    private void btnPrintPenaltyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintPenaltyActionPerformed
+          try {
+            boolean complete = jTable1.print(PrintMode.FIT_WIDTH, 
+                                            new java.text.MessageFormat("Penalidad por Ausencias - Artesano: " + loggedInUsername),
+                                            new java.text.MessageFormat("Página -{0}"));
+            if (complete) {
+                JOptionPane.showMessageDialog(this, "Impresión completada exitosamente.", "Impresión", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "La impresión fue cancelada o no pudo completarse.", "Impresión", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (PrinterException pe) {
+            JOptionPane.showMessageDialog(this, "Error al imprimir: " + pe.getMessage(), "Error de Impresión", JOptionPane.ERROR_MESSAGE);
+            pe.printStackTrace();
+        }
+    }//GEN-LAST:event_btnPrintPenaltyActionPerformed
+
+    private void btnReturnPenaltyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnPenaltyActionPerformed
+        String artisanUsername = loggedInUsername;
+        FrmPrincipalMenu frmPrincipalMenu  =new FrmPrincipalMenu(artisanUsername);
+        frmPrincipalMenu.setVisible(true); 
+        frmPrincipalMenu.setLocationRelativeTo(null);
+         this.dispose(); 
+    }//GEN-LAST:event_btnReturnPenaltyActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -209,11 +376,12 @@ public class FrmPenalty extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmPenalty.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmPenalty().setVisible(true);
+                new FrmPenalty("artesano de prueba").setVisible(true);
             }
         });
     }

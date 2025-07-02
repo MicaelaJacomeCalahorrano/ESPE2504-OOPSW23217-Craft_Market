@@ -29,6 +29,7 @@ ec\espe\edu\view\FrmRegisterSale$6.class
 ec\espe\edu\view\FrmMarkAttendence$2.class
 ec\espe\edu\view\FrmMonthlyReport$2.class
 ec\espe\edu\view\FrmRegisterSale$3.class
+ec\espe\edu\view\FrmPenalty$4.class
 ec\espe\edu\model\MonthlyReport.class
 ec\espe\edu\model\Product.class
 ec\espe\edu\view\FrmPrincipalMenu$7.class
@@ -42,6 +43,7 @@ ec\espe\edu\view\FrmPenalty$2.class
 ec\espe\edu\view\FrmPenalty.class
 ec\espe\edu\model\Artisan.class
 ec\espe\edu\view\FrmCheckAttendanceHistory$2.class
+ec\espe\edu\view\FrmPenalty$5.class
 ec\espe\edu\view\FrmRegisterSale$4.class
 ec\espe\edu\model\Inventory.class
 ec\espe\edu\view\FrmRegisterSale$7.class
@@ -52,7 +54,9 @@ ec\espe\edu\view\FrmMarkAttendence$1$1.class
 ec\espe\edu\view\FrmRegisterSale$8.class
 ec\espe\edu\view\FrmUser$1.class
 ec\espe\edu\view\FrmMenu$1.class
+ec\espe\edu\view\FrmPrincipalMenu$8.class
 ec\espe\edu\view\FrmPrincipalMenu$6.class
+ec\espe\edu\view\FrmPenalty$3.class
 ec\espe\edu\view\FrmRegisterSale$1.class
 ec\espe\edu\model\Attendance.class
 ec\espe\edu\model\controller\UserController.class
