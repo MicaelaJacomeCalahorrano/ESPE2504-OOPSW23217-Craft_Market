@@ -81,6 +81,11 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         mnuAttendance.add(itmMarkAttendance);
 
         itmViewAttendanceHistory.setText("Ver historial de asistencia");
+        itmViewAttendanceHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmViewAttendanceHistoryActionPerformed(evt);
+            }
+        });
         mnuAttendance.add(itmViewAttendanceHistory);
 
         itmPenalty.setText("Penalización");
@@ -195,6 +200,14 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         frmMonthlyReport.setVisible(true);
         frmMonthlyReport.setLocationRelativeTo(null);
     }//GEN-LAST:event_itmReportActionPerformed
+
+    private void itmViewAttendanceHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmViewAttendanceHistoryActionPerformed
+         String artisanUsername = name;
+        FrmCheckAttendanceHistory frmCheckAttendanceHistory  =new FrmCheckAttendanceHistory(artisanUsername);
+         frmCheckAttendanceHistory.setVisible(true); 
+        frmCheckAttendanceHistory.setLocationRelativeTo(null);
+         this.dispose();
+    }//GEN-LAST:event_itmViewAttendanceHistoryActionPerformed
 
     /**
      * @param args the command line arguments

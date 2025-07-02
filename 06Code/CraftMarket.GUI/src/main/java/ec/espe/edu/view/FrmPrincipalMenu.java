@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package ec.espe.edu.view;
 
 /**
@@ -5,14 +9,22 @@ package ec.espe.edu.view;
  * @author jorge
  */
 public class FrmPrincipalMenu extends javax.swing.JFrame {
-     private String name;
+
+    private String name;
+
     /**
      * Creates new form FrmPrincipalMenu
      */
-    public FrmPrincipalMenu(String name) {
-        this.name=name;
+    public FrmPrincipalMenu() {
+        this.name = "";
         initComponents();
     }
+
+    public FrmPrincipalMenu(String name) {
+        this.name = name;
+        initComponents();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,16 +43,16 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         itmViewAttendanceHistory = new javax.swing.JMenuItem();
         itmPenalty = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        itmRegister = new javax.swing.JMenuItem();
+        itmFilter = new javax.swing.JMenuItem();
+        itmReport = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        itmAddProduct = new javax.swing.JMenuItem();
-        itmEditProduct = new javax.swing.JMenuItem();
-        itmDeleteProduct = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +81,11 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         mnuAttendance.add(itmMarkAttendance);
 
         itmViewAttendanceHistory.setText("Ver historial de asistencia");
+        itmViewAttendanceHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmViewAttendanceHistoryActionPerformed(evt);
+            }
+        });
         mnuAttendance.add(itmViewAttendanceHistory);
 
         itmPenalty.setText("Penalización");
@@ -78,19 +95,29 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
         jMenu3.setText("Ventas");
 
-        jMenuItem5.setText("Registrar venta");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        itmRegister.setText("Registrar venta");
+        itmRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                itmRegisterActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem5);
+        jMenu3.add(itmRegister);
 
-        jMenuItem6.setText("Buscar venta por fecha");
-        jMenu3.add(jMenuItem6);
+        itmFilter.setText("Buscar venta por fecha");
+        itmFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmFilterActionPerformed(evt);
+            }
+        });
+        jMenu3.add(itmFilter);
 
-        jMenuItem7.setText("Reporte mensual");
-        jMenu3.add(jMenuItem7);
+        itmReport.setText("Reporte mensual");
+        itmReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmReportActionPerformed(evt);
+            }
+        });
+        jMenu3.add(itmReport);
 
         jMenuBar1.add(jMenu3);
 
@@ -106,14 +133,14 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
         jMenu5.setText("Productos");
 
-        itmAddProduct.setText("Añadir producto");
-        jMenu5.add(itmAddProduct);
+        jMenuItem10.setText("Añadir producto");
+        jMenu5.add(jMenuItem10);
 
-        itmEditProduct.setText("Editar producto");
-        jMenu5.add(itmEditProduct);
+        jMenuItem11.setText("Editar producto");
+        jMenu5.add(jMenuItem11);
 
-        itmDeleteProduct.setText("Borrar producto");
-        jMenu5.add(itmDeleteProduct);
+        jMenuItem12.setText("Borrar producto");
+        jMenu5.add(jMenuItem12);
 
         jMenuBar1.add(jMenu5);
 
@@ -143,17 +170,44 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void itmRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRegisterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+        FrmRegisterSale frmRegisterSale = new FrmRegisterSale();
+        frmRegisterSale.setVisible(true);
+        frmRegisterSale.setLocationRelativeTo(null);
+
+        this.dispose();
+    }//GEN-LAST:event_itmRegisterActionPerformed
 
     private void itmMarkAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmMarkAttendanceActionPerformed
         String artisanUsername = name;
-        FrmMarkAttendence frmMarkAttendence  =new FrmMarkAttendence(artisanUsername);
-         frmMarkAttendence.setVisible(true); 
+        FrmMarkAttendence frmMarkAttendence = new FrmMarkAttendence(artisanUsername);
+        frmMarkAttendence.setVisible(true);
         frmMarkAttendence.setLocationRelativeTo(null);
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_itmMarkAttendanceActionPerformed
+
+    private void itmFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmFilterActionPerformed
+        // TODO add your handling code here:
+        FrmFilterByDate frmFilterByDate = new FrmFilterByDate();
+        frmFilterByDate.setVisible(true);
+        frmFilterByDate.setLocationRelativeTo(null);
+    }//GEN-LAST:event_itmFilterActionPerformed
+
+    private void itmReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmReportActionPerformed
+        // TODO add your handling code here:
+        FrmMonthlyReport frmMonthlyReport = new FrmMonthlyReport();
+        frmMonthlyReport.setVisible(true);
+        frmMonthlyReport.setLocationRelativeTo(null);
+    }//GEN-LAST:event_itmReportActionPerformed
+
+    private void itmViewAttendanceHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmViewAttendanceHistoryActionPerformed
+         String artisanUsername = name;
+        FrmCheckAttendanceHistory frmCheckAttendanceHistory  =new FrmCheckAttendanceHistory(artisanUsername);
+         frmCheckAttendanceHistory.setVisible(true); 
+        frmCheckAttendanceHistory.setLocationRelativeTo(null);
+         this.dispose();
+    }//GEN-LAST:event_itmViewAttendanceHistoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,11 +245,11 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem itmAddProduct;
-    private javax.swing.JMenuItem itmDeleteProduct;
-    private javax.swing.JMenuItem itmEditProduct;
+    private javax.swing.JMenuItem itmFilter;
     private javax.swing.JMenuItem itmMarkAttendance;
     private javax.swing.JMenuItem itmPenalty;
+    private javax.swing.JMenuItem itmRegister;
+    private javax.swing.JMenuItem itmReport;
     private javax.swing.JMenuItem itmViewAttendanceHistory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -204,9 +258,9 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu mnuAttendance;

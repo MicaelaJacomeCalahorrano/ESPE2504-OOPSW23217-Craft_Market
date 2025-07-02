@@ -15,7 +15,11 @@ public class MongoConnection {
 
     private static MongoClient mongoClient;
     private static MongoDatabase database;
-
+     public static MongoDatabase connect() {
+        String uri ="mongodb+srv://machicaiza22:pan@cluster0.dqlf2xq.mongodb.net/?retryWrites=true&w=majority";
+        MongoClient client = MongoClients.create(uri);
+        return client.getDatabase("craftmarket");
+    }
     static {
         try {
             mongoClient = MongoClients.create(URI);

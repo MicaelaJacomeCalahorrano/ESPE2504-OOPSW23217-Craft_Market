@@ -4,19 +4,101 @@
  */
 package ec.espe.edu.view;
 
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import ec.espe.edu.model.utils.MongoConnection;
+import org.bson.Document;
+import com.mongodb.client.FindIterable; 
+
+import javax.swing.table.DefaultTableModel; 
+import javax.swing.JOptionPane; 
+
+import java.text.SimpleDateFormat; 
+import java.util.Date; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.awt.print.PrinterException; 
+import javax.swing.JTable.PrintMode; 
 /**
  *
  * @author ESPE
  */
 public class FrmCheckAttendanceHistory extends javax.swing.JFrame {
-
+     private String loggedInUsername;
+     private DefaultTableModel tableModel;
     /**
      * Creates new form CheckAttendanceHistory
      */
-    public FrmCheckAttendanceHistory() {
+    public FrmCheckAttendanceHistory(String username) {
+        this.loggedInUsername = username;
         initComponents();
-    }
+        setLocationRelativeTo(null);
+        
+        Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING); // Opcional: Para controlar logs de MongoDB
 
+        txtArtesanoCheck.setText(loggedInUsername);
+        txtArtesanoCheck.setEditable(false);
+        
+          setupTableModel();
+          
+          loadAttendanceData();
+           btnReturnCheck.addActionListener(e -> {
+            this.dispose();
+        });
+           btnPrintCheck.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Funcionalidad de impresión no implementada aún.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            
+        });
+    }   
+     private void setupTableModel() {
+       
+        tableModel = new DefaultTableModel(new Object[]{"Artesano", "Fecha", "Confirmado"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        
+        tblAttendanceHistory.setModel(tableModel); 
+    }
+ private void loadAttendanceData() {
+       
+        tableModel.setRowCount(0);
+
+        try {
+            MongoDatabase db = MongoConnection.connect();
+            MongoCollection<Document> attendanceCollection = db.getCollection("Attendance");
+
+            
+            Document query = new Document("artisanName", loggedInUsername);
+            
+           
+            FindIterable<Document> documents = attendanceCollection.find(query);
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+            for (Document doc : documents) {
+                String artisan = doc.getString("artisanName");
+                Date date = doc.getDate("date"); 
+                Boolean confirmed = doc.getBoolean("confirmed");
+
+                String formattedDate = (date != null) ? dateFormat.format(date) : "N/A";
+                String confirmedStatus = (confirmed != null && confirmed) ? "Sí" : "No";
+
+                
+                tableModel.addRow(new Object[]{artisan, formattedDate, confirmedStatus});
+            }
+
+            if (tableModel.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "No se encontraron registros de asistencia para " + loggedInUsername + ".", "Sin Datos", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos de asistencia: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +113,7 @@ public class FrmCheckAttendanceHistory extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAttendanceHistory = new javax.swing.JTable();
         txtArtesanoCheck = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnReturnCheck = new javax.swing.JButton();
@@ -45,22 +127,22 @@ public class FrmCheckAttendanceHistory extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(133, 133, 133)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(191, 191, 191))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32))
+                .addGap(39, 39, 39))
         );
 
         jLabel2.setText("Artesano:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAttendanceHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -71,7 +153,7 @@ public class FrmCheckAttendanceHistory extends javax.swing.JFrame {
                 "Fecha", "Asistencia"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblAttendanceHistory);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -102,8 +184,18 @@ public class FrmCheckAttendanceHistory extends javax.swing.JFrame {
         );
 
         btnReturnCheck.setText("Regresar");
+        btnReturnCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnCheckActionPerformed(evt);
+            }
+        });
 
         btnPrintCheck.setText("Imprimir");
+        btnPrintCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintCheckActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -151,6 +243,30 @@ public class FrmCheckAttendanceHistory extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnReturnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnCheckActionPerformed
+    String artisanUsername = loggedInUsername;
+        FrmPrincipalMenu frmPrincipalMenu  =new FrmPrincipalMenu(artisanUsername);
+        frmPrincipalMenu.setVisible(true); 
+        frmPrincipalMenu.setLocationRelativeTo(null);
+         this.dispose();           
+    }//GEN-LAST:event_btnReturnCheckActionPerformed
+
+    private void btnPrintCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintCheckActionPerformed
+        try {
+            boolean complete = tblAttendanceHistory.print(PrintMode.FIT_WIDTH, 
+                                                        new java.text.MessageFormat("Historial de Asistencia - Artesano: " + loggedInUsername),
+                                                        new java.text.MessageFormat("Página -{0}"));
+            if (complete) {
+                JOptionPane.showMessageDialog(this, "Impresión completada exitosamente.", "Impresión", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "La impresión fue cancelada o no pudo completarse.", "Impresión", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (PrinterException pe) {
+            JOptionPane.showMessageDialog(this, "Error al imprimir: " + pe.getMessage(), "Error de Impresión", JOptionPane.ERROR_MESSAGE);
+            pe.printStackTrace();
+        }
+    }//GEN-LAST:event_btnPrintCheckActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -178,11 +294,13 @@ public class FrmCheckAttendanceHistory extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCheckAttendanceHistory().setVisible(true);
+                new FrmCheckAttendanceHistory("hola").setVisible(true);
             }
         });
     }
@@ -196,7 +314,7 @@ public class FrmCheckAttendanceHistory extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblAttendanceHistory;
     private javax.swing.JTextField txtArtesanoCheck;
     // End of variables declaration//GEN-END:variables
 }

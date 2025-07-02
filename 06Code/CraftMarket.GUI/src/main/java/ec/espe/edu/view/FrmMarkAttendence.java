@@ -10,34 +10,39 @@ import ec.espe.edu.model.utils.MongoConnection;
 import org.bson.Document;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent; // Necesario para ItemListener
 import java.awt.event.ItemListener; // Necesario para ItemListener
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author ESPE
  */
 public class FrmMarkAttendence extends javax.swing.JFrame {
-      private String loggedInUsername;
+
+    private String loggedInUsername;
+
     /**
      * Creates new form MarkAttendence
+     *
+     * @param username
      */
     public FrmMarkAttendence(String username) {
         this.loggedInUsername = username;
         initComponents();
         setLocationRelativeTo(null);
-        
+
         Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
-        
+
         txtArtesanoAttendance.setText(loggedInUsername);
         txtArtesanoAttendance.setEditable(false);
-        
+
         // Configurar el formato de fecha para fmtDate si deseas una entrada manual específica
         // Ejemplo: "dd/MM/yyyy"
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -60,7 +65,7 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
                 };
             }
         });
-        
+
         // Poner la fecha actual por defecto en el campo de fecha al iniciar la ventana
         fmtDate.setText(dateFormat.format(new Date()));
         btnResgisterAttendance.setEnabled(false);
@@ -72,7 +77,7 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
                 btnResgisterAttendance.setEnabled(chboxConfirmateAttendance.isSelected());
             }
         });
-        
+
     }
 
     /**
@@ -224,51 +229,56 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
     }//GEN-LAST:event_fmtDateActionPerformed
 
     private void btnResgisterAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResgisterAttendanceActionPerformed
-      // 1. Obtener los datos directamente de los campos
+        // 1. Obtener los datos directamente de los campos
+
         String artisanName = txtArtesanoAttendance.getText().trim();
         String dateText = fmtDate.getText().trim();
         boolean isConfirmed = chboxConfirmateAttendance.isSelected();
 
+        if (artisanName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese el nombre del artesano.", "Campo requerido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        LocalDate attendanceDate;
         try {
-            // 2. Conectarse a la base de datos MongoDB
-            MongoDatabase db = MongoConnection.connect();
-            // 3. Seleccionar la colección 'Attendance' para guardar los registros
-            MongoCollection<Document> attendanceCollection = db.getCollection("Attendance");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            attendanceDate = LocalDate.parse(dateText, formatter);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Fecha inválida. Ingrese en formato dd/MM/yyyy.", "Error de fecha", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-            // 4. Procesar la fecha
-            Date attendanceDate;
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                attendanceDate = dateFormat.parse(dateText);
-            } catch (ParseException e) {
-                // Si hay un problema con el formato de fecha, o el campo está vacío,
-                // se usará la fecha y hora actuales. No se mostrará un mensaje de advertencia.
-                attendanceDate = new Date();
-            }
+        try {
+            MongoDatabase db = MongoConnection.getDatabase();
 
-            // 5. Crear el documento de asistencia
+            MongoCollection<Document> attendanceCollection = db.getCollection("attendance");
+
             Document attendanceRecord = new Document("artisanName", artisanName)
-                                            .append("date", attendanceDate)
-                                            .append("confirmed", isConfirmed);
+                    .append("date", attendanceDate.toString()) // guarda en formato yyyy-MM-dd
+                    .append("confirmed", isConfirmed);
 
-            // 6. Insertar el documento en la colección 'Attendance'
             attendanceCollection.insertOne(attendanceRecord);
 
-            // 7. Mostrar mensaje de éxito y restablecer el checkbox
-            JOptionPane.showMessageDialog(this, "Asistencia marcada para '" + artisanName + "'.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Asistencia marcada exitosamente para '" + artisanName + "'.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+            // Limpiar campos tras registrar
+            txtArtesanoAttendance.setText("");
+            fmtDate.setText("");
             chboxConfirmateAttendance.setSelected(false);
-            FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu("artesano de prueba");
-                frmPrincipalMenu.setVisible(true);
-                frmPrincipalMenu.setLocationRelativeTo(null);
-                this.dispose();
+
+            // Regresar al menú
+            FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(artisanName);
+            frmPrincipalMenu.setVisible(true);
+            frmPrincipalMenu.setLocationRelativeTo(null);
+            this.dispose();
 
         } catch (Exception e) {
-            // Manejo de errores de base de datos
-            JOptionPane.showMessageDialog(this, "Ocurrió un error al marcar la asistencia: " + e.getMessage(), "Error de Base de Datos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al registrar asistencia: " + e.getMessage(), "Error de Base de Datos", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnResgisterAttendanceActionPerformed
-                     
+
     /**
      * @param args the command line arguments
      */
