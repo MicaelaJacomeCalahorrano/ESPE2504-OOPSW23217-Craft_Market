@@ -88,17 +88,17 @@
             <Property name="text" type="java.lang.String" value="Productos"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
+            <MenuItem class="javax.swing.JMenuItem" name="itmAddProduct">
               <Properties>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir producto"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
+            <MenuItem class="javax.swing.JMenuItem" name="itmEditProduct">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar producto"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
+            <MenuItem class="javax.swing.JMenuItem" name="itmDeleteProduct">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Borrar producto"/>
               </Properties>

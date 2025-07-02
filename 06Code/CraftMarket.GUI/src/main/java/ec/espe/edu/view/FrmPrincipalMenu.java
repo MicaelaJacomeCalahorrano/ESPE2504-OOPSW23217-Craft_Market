@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.espe.edu.view;
 
 /**
@@ -42,9 +38,9 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        itmAddProduct = new javax.swing.JMenuItem();
+        itmEditProduct = new javax.swing.JMenuItem();
+        itmDeleteProduct = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,14 +101,14 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
         jMenu5.setText("Productos");
 
-        jMenuItem10.setText("Añadir producto");
-        jMenu5.add(jMenuItem10);
+        itmAddProduct.setText("Añadir producto");
+        jMenu5.add(itmAddProduct);
 
-        jMenuItem11.setText("Editar producto");
-        jMenu5.add(jMenuItem11);
+        itmEditProduct.setText("Editar producto");
+        jMenu5.add(itmEditProduct);
 
-        jMenuItem12.setText("Borrar producto");
-        jMenu5.add(jMenuItem12);
+        itmDeleteProduct.setText("Borrar producto");
+        jMenu5.add(itmDeleteProduct);
 
         jMenuBar1.add(jMenu5);
 
@@ -182,6 +178,9 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itmAddProduct;
+    private javax.swing.JMenuItem itmDeleteProduct;
+    private javax.swing.JMenuItem itmEditProduct;
     private javax.swing.JMenuItem itmMarkAttendance;
     private javax.swing.JMenuItem itmPenalty;
     private javax.swing.JMenuItem itmViewAttendanceHistory;
@@ -192,9 +191,6 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
