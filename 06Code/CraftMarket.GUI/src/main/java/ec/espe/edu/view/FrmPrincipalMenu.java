@@ -129,6 +129,11 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         jMenu4.setText("Inventario");
 
         jMenuItem8.setText("Inventario general");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem8);
 
         ItmMnuPersonalInventory.setText("Inventario personal");
@@ -234,6 +239,13 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         setVisible(false);
        
     }//GEN-LAST:event_ItmMnuPersonalInventoryActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        FrmGeneralInventory frmGeneralInventory = new FrmGeneralInventory();
+        frmGeneralInventory.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
