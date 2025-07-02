@@ -9,14 +9,14 @@ package ec.espe.edu.view;
  * @author jorge
  */
 public class FrmPrincipalMenu extends javax.swing.JFrame {
-
+     private String name;
     /**
      * Creates new form FrmPrincipalMenu
      */
-    public FrmPrincipalMenu() {
+    public FrmPrincipalMenu(String name) {
+        this.name=name;
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,6 +65,11 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         mnuAttendance.setText("Asistencia");
 
         itmMarkAttendance.setText("Marcar Asistencia");
+        itmMarkAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmMarkAttendanceActionPerformed(evt);
+            }
+        });
         mnuAttendance.add(itmMarkAttendance);
 
         itmViewAttendanceHistory.setText("Ver historial de asistencia");
@@ -146,6 +151,14 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void itmMarkAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmMarkAttendanceActionPerformed
+        String artisanUsername = name;
+        FrmMarkAttendence frmMarkAttendence  =new FrmMarkAttendence(artisanUsername);
+         frmMarkAttendence.setVisible(true); 
+        frmMarkAttendence.setLocationRelativeTo(null);
+         this.dispose();
+    }//GEN-LAST:event_itmMarkAttendanceActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -176,7 +189,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmPrincipalMenu().setVisible(true);
+                new FrmPrincipalMenu("hla").setVisible(true);
             }
         });
     }
