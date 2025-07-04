@@ -24,6 +24,7 @@ ec\espe\edu\view\FrmEditProduct.class
 ec\espe\edu\view\FrmGeneralInventory$2.class
 ec\espe\edu\view\FrmPenalty$1.class
 ec\espe\edu\view\FrmCheckAttendanceHistory$1.class
+ec\espe\edu\model\controller\AttendanceController.class
 ec\espe\edu\view\FrmGeneralInventory.class
 ec\espe\edu\view\FrmFilterByDate$1.class
 ec\espe\edu\view\FrmPrincipalMenu$4.class
@@ -64,7 +65,6 @@ ec\espe\edu\view\FrmDeleteProduct.class
 ec\espe\edu\view\FrmMarkAttendence$6.class
 ec\espe\edu\view\FrmPrincipalMenu$3.class
 ec\espe\edu\model\SalesReport.class
-ec\espe\edu\view\FrmMarkAttendence$1$1.class
 ec\espe\edu\view\FrmRegisterSale$8.class
 ec\espe\edu\view\FrmUser$1.class
 ec\espe\edu\view\FrmMenu$1.class
@@ -83,6 +83,7 @@ ec\espe\edu\view\FrmAddProduct$3.class
 ec\espe\edu\view\FrmDeleteProduct$1.class
 ec\espe\edu\view\FrmMarkAttendence$4.class
 ec\espe\edu\view\FrmPrincipalMenu.class
+ec\espe\edu\model\controller\AttendanceController$RegisterAttendanceResult.class
 ec\espe\edu\model\utils\ProductDataAccessObject.class
 ec\espe\edu\view\FrmFilterByDate$2.class
 ec\espe\edu\view\FrmCheckAttendanceHistory$3.class

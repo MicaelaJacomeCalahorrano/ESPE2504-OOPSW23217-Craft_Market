@@ -4,21 +4,21 @@
  */
 package ec.espe.edu.view;
 
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import ec.espe.edu.model.utils.MongoConnection;
-import org.bson.Document;
+import ec.espe.edu.model.controller.AttendanceController;
+import ec.espe.edu.model.controller.AttendanceController.RegisterAttendanceResult;
 
 import javax.swing.*;
-import java.awt.event.ItemEvent; // Necesario para ItemListener
-import java.awt.event.ItemListener; // Necesario para ItemListener
-import java.text.ParseException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 
 /**
  *
@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 public class FrmMarkAttendence extends javax.swing.JFrame {
 
     private String loggedInUsername;
+    private AttendanceController attendanceController;
 
     /**
      * Creates new form MarkAttendence
@@ -40,40 +41,25 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
 
         Logger.getLogger("org.mongodb.driver").setLevel(Level.WARNING);
 
+        attendanceController = new AttendanceController();
+
         txtArtesanoAttendance.setText(loggedInUsername);
         txtArtesanoAttendance.setEditable(false);
 
-        // Configurar el formato de fecha para fmtDate si deseas una entrada manual específica
-        // Ejemplo: "dd/MM/yyyy"
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        fmtDate.setFormatterFactory(new JFormattedTextField.AbstractFormatterFactory() {
-            @Override
-            public JFormattedTextField.AbstractFormatter getFormatter(JFormattedTextField tf) {
-                return new JFormattedTextField.AbstractFormatter() {
-                    @Override
-                    public Object stringToValue(String text) throws ParseException {
-                        return dateFormat.parseObject(text);
-                    }
+        DateFormatter dateFormatter = new DateFormatter(dateFormat);
+        DefaultFormatterFactory factory = new DefaultFormatterFactory(dateFormatter);
 
-                    @Override
-                    public String valueToString(Object value) throws ParseException {
-                        if (value instanceof Date) {
-                            return dateFormat.format((Date) value);
-                        }
-                        return "";
-                    }
-                };
-            }
-        });
+        fmtDate.setFormatterFactory(factory);
+        fmtDate.setEditable(false);
 
-        // Poner la fecha actual por defecto en el campo de fecha al iniciar la ventana
-        fmtDate.setText(dateFormat.format(new Date()));
-        btnResgisterAttendance.setEnabled(false);
-        // Añadir el ActionListener al botón "Registrar Asistencia"
+        Date currentDate = Calendar.getInstance().getTime();
+        fmtDate.setValue(currentDate);
+         btnResgisterAttendance.setEnabled(false); 
+
         chboxConfirmateAttendance.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                // Habilita el botón si el checkbox está marcado, deshabilita si no
                 btnResgisterAttendance.setEnabled(chboxConfirmateAttendance.isSelected());
             }
         });
@@ -99,6 +85,7 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnResgisterAttendance = new javax.swing.JButton();
+        btnReturnCheck = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -177,21 +164,32 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
             }
         });
 
+        btnReturnCheck.setText("Regresar");
+        btnReturnCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnCheckActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addComponent(btnResgisterAttendance)
-                .addGap(130, 130, 130))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReturnCheck)
+                .addGap(65, 65, 65))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(btnResgisterAttendance)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnResgisterAttendance)
+                    .addComponent(btnReturnCheck))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,6 +220,11 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
 
     private void chboxConfirmateAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chboxConfirmateAttendanceActionPerformed
         // TODO add your handling code here:
+        if (chboxConfirmateAttendance.isSelected()) {
+            System.out.println("Checkbox de confirmación seleccionado.");
+        } else {
+            System.out.println("Checkbox de confirmación deseleccionado.");
+        }
     }//GEN-LAST:event_chboxConfirmateAttendanceActionPerformed
 
     private void fmtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fmtDateActionPerformed
@@ -229,56 +232,30 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
     }//GEN-LAST:event_fmtDateActionPerformed
 
     private void btnResgisterAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResgisterAttendanceActionPerformed
-        // 1. Obtener los datos directamente de los campos
+        String artisanName = txtArtesanoAttendance.getText();
+        String dateString = fmtDate.getText();
+        boolean confirmed = chboxConfirmateAttendance.isSelected();
 
-        String artisanName = txtArtesanoAttendance.getText().trim();
-        String dateText = fmtDate.getText().trim();
-        boolean isConfirmed = chboxConfirmateAttendance.isSelected();
+        RegisterAttendanceResult result = attendanceController.registerAttendance(artisanName, dateString, confirmed);
 
-        if (artisanName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese el nombre del artesano.", "Campo requerido", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        JOptionPane.showMessageDialog(this, result.getMessage());
 
-        LocalDate attendanceDate;
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            attendanceDate = LocalDate.parse(dateText, formatter);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Fecha inválida. Ingrese en formato dd/MM/yyyy.", "Error de fecha", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            MongoDatabase db = MongoConnection.getDatabase();
-
-            MongoCollection<Document> attendanceCollection = db.getCollection("attendance");
-
-            Document attendanceRecord = new Document("artisanName", artisanName)
-                    .append("date", attendanceDate.toString()) // guarda en formato yyyy-MM-dd
-                    .append("confirmed", isConfirmed);
-
-            attendanceCollection.insertOne(attendanceRecord);
-
-            JOptionPane.showMessageDialog(this, "Asistencia marcada exitosamente para '" + artisanName + "'.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-
-            // Limpiar campos tras registrar
-            txtArtesanoAttendance.setText("");
-            fmtDate.setText("");
+        if (result.isSuccess()) {
+            fmtDate.setValue(Calendar.getInstance().getTime());
             chboxConfirmateAttendance.setSelected(false);
+            
+        }
 
-            // Regresar al menú
-            FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(artisanName);
+    }//GEN-LAST:event_btnResgisterAttendanceActionPerformed
+
+    private void btnReturnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnCheckActionPerformed
+            FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(loggedInUsername);
             frmPrincipalMenu.setVisible(true);
             frmPrincipalMenu.setLocationRelativeTo(null);
             this.dispose();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar asistencia: " + e.getMessage(), "Error de Base de Datos", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_btnResgisterAttendanceActionPerformed
-
+            
+    }//GEN-LAST:event_btnReturnCheckActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -306,6 +283,8 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -317,6 +296,7 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnResgisterAttendance;
+    private javax.swing.JButton btnReturnCheck;
     private javax.swing.JCheckBox chboxConfirmateAttendance;
     private javax.swing.JFormattedTextField fmtDate;
     private javax.swing.JLabel jLabel1;
