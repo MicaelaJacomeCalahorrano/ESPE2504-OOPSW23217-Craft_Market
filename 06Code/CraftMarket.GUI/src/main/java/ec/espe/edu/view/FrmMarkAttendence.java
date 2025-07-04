@@ -55,7 +55,7 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
 
         Date currentDate = Calendar.getInstance().getTime();
         fmtDate.setValue(currentDate);
-         btnResgisterAttendance.setEnabled(false); 
+        btnResgisterAttendance.setEnabled(false);
 
         chboxConfirmateAttendance.addItemListener(new ItemListener() {
             @Override
@@ -243,19 +243,19 @@ public class FrmMarkAttendence extends javax.swing.JFrame {
         if (result.isSuccess()) {
             fmtDate.setValue(Calendar.getInstance().getTime());
             chboxConfirmateAttendance.setSelected(false);
-            
+
         }
 
     }//GEN-LAST:event_btnResgisterAttendanceActionPerformed
 
     private void btnReturnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnCheckActionPerformed
-            FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(loggedInUsername);
-            frmPrincipalMenu.setVisible(true);
-            frmPrincipalMenu.setLocationRelativeTo(null);
-            this.dispose();
-            
+        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(loggedInUsername);
+        frmPrincipalMenu.setVisible(true);
+        frmPrincipalMenu.setLocationRelativeTo(null);
+        this.dispose();
+
     }//GEN-LAST:event_btnReturnCheckActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */

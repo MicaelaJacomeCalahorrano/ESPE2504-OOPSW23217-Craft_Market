@@ -8,12 +8,14 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import ec.espe.edu.model.utils.MongoConnection;
 import org.bson.Document;
-
+import com.mongodb.client.FindIterable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -71,5 +73,14 @@ public class AttendanceController {
         public String getMessage() {
             return message;
         }
+    }
+
+    public List<Document> getAttendanceHistory(String artisanName) {
+        List<Document> history = new ArrayList<>();
+        FindIterable<Document> documents = attendanceCollection.find(new Document("artisanName", artisanName));
+        for (Document doc : documents) {
+            history.add(doc);
+        }
+        return history;
     }
 }
