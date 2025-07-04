@@ -1,17 +1,41 @@
 package ec.espe.edu.view;
 
+import ec.espe.edu.model.Product;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Micaela Jacome DESKTOP-46VMNHU ESPE
  */
 public class FrmEditProduct extends javax.swing.JFrame {
 
+    private final Product productToEdit;
+    private String owner;
 
     /**
      * Creates new form FrmEditProduc
+     *
+     * @param productId
+     * @param owner
      */
-    public FrmEditProduct() {
-        
+    public FrmEditProduct(int productId, String owner) {
+        initComponents(); // Inicializa los componentes del formulario
+        setLocationRelativeTo(null); // Centra la ventana
+
+        // Cargar el producto desde MongoDB
+        this.productToEdit = Product.findById(productId);
+        if (productToEdit == null || !productToEdit.getOwner().equals(owner)) {
+            JOptionPane.showMessageDialog(this, "Producto no encontrado o no pertenece al artesano", "Error", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+            return;
+        }
+
+        // Mostrar los datos del producto
+        txtId.setText(String.valueOf(productToEdit.getId()));
+        txtId.setEditable(false); // ID no editable
+        txtName.setText(productToEdit.getName());
+        txtPrice.setText(String.valueOf(productToEdit.getUnitPrice()));
+        txtStock.setText(String.valueOf(productToEdit.getStock()));
     }
 
     /**
@@ -122,6 +146,11 @@ public class FrmEditProduct extends javax.swing.JFrame {
         });
 
         btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -169,10 +198,48 @@ public class FrmEditProduct extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        try {
+            // Validar campos
+            if (txtName.getText().isEmpty() || txtPrice.getText().isEmpty() || txtStock.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Obtener nuevos valores
+            String newName = txtName.getText();
+            double newPrice = Double.parseDouble(txtPrice.getText());
+            int newStock = Integer.parseInt(txtStock.getText());
+
+            // Validar valores positivos
+            if (newPrice <= 0 || newStock < 0) {
+                JOptionPane.showMessageDialog(this, "Precio y Stock deben ser valores positivos", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Actualizar el producto
+            productToEdit.setName(newName);
+            productToEdit.setUnitPrice(newPrice);
+            productToEdit.setStock(newStock);
+
+            // Guardar en MongoDB
+            Product.updateProduct(productToEdit);
+
+            JOptionPane.showMessageDialog(this, "Producto actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Precio y Stock deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,11 +267,14 @@ public class FrmEditProduct extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmEditProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmEditProduct().setVisible(true);
+                //new FrmEditProduct().setVisible(true);
             }
         });
     }

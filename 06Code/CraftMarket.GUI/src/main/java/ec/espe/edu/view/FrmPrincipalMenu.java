@@ -7,6 +7,7 @@ package ec.espe.edu.view;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +23,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     public FrmPrincipalMenu() {
         this.name = "";
         initComponents();
-         cargarImagenes();
+        cargarImagenes();
     }
 
     public FrmPrincipalMenu(String name) {
@@ -30,22 +31,22 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         initComponents();
         cargarImagenes();
     }
+
     private void cargarImagenEnLabel(JLabel label, String ruta, int ancho, int alto) {
-    try {
-        ImageIcon icon = new ImageIcon(getClass().getResource(ruta));
-        Image img = icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
-        label.setIcon(new ImageIcon(img));
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, " " + ruta);
+        try {
+            ImageIcon icon = new ImageIcon(getClass().getResource(ruta));
+            Image img = icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+            label.setIcon(new ImageIcon(img));
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, " " + ruta);
+        }
     }
-}
 
-
-private void cargarImagenes() {
-    cargarImagenEnLabel(lblImg1, "/images/cedazo2.jpg", 200, 150);
-    cargarImagenEnLabel(lblImg2, "/images/Cedazo.jpg", 200, 150);
-    cargarImagenEnLabel(lblImg3, "/images/cedazo3.jpg", 200, 150);
-}
+    private void cargarImagenes() {
+        cargarImagenEnLabel(lblImg1, "/images/cedazo2.jpg", 200, 150);
+        cargarImagenEnLabel(lblImg2, "/images/Cedazo.jpg", 200, 150);
+        cargarImagenEnLabel(lblImg3, "/images/cedazo3.jpg", 200, 150);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,9 +76,9 @@ private void cargarImagenes() {
         jMenuItem8 = new javax.swing.JMenuItem();
         ItmMnuPersonalInventory = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        mniAddProduct = new javax.swing.JMenuItem();
+        mniEditProduct = new javax.swing.JMenuItem();
+        mniDeletProduct = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -174,14 +175,29 @@ private void cargarImagenes() {
 
         jMenu5.setText("Productos");
 
-        jMenuItem10.setText("Añadir producto");
-        jMenu5.add(jMenuItem10);
+        mniAddProduct.setText("Añadir producto");
+        mniAddProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAddProductActionPerformed(evt);
+            }
+        });
+        jMenu5.add(mniAddProduct);
 
-        jMenuItem11.setText("Editar producto");
-        jMenu5.add(jMenuItem11);
+        mniEditProduct.setText("Editar producto");
+        mniEditProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniEditProductActionPerformed(evt);
+            }
+        });
+        jMenu5.add(mniEditProduct);
 
-        jMenuItem12.setText("Borrar producto");
-        jMenu5.add(jMenuItem12);
+        mniDeletProduct.setText("Borrar producto");
+        mniDeletProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniDeletProductActionPerformed(evt);
+            }
+        });
+        jMenu5.add(mniDeletProduct);
 
         jMenuBar1.add(jMenu5);
 
@@ -255,19 +271,19 @@ private void cargarImagenes() {
     }//GEN-LAST:event_itmReportActionPerformed
 
     private void itmViewAttendanceHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmViewAttendanceHistoryActionPerformed
-         String artisanUsername = name;
-        FrmCheckAttendanceHistory frmCheckAttendanceHistory  =new FrmCheckAttendanceHistory(artisanUsername);
-         frmCheckAttendanceHistory.setVisible(true); 
+        String artisanUsername = name;
+        FrmCheckAttendanceHistory frmCheckAttendanceHistory = new FrmCheckAttendanceHistory(artisanUsername);
+        frmCheckAttendanceHistory.setVisible(true);
         frmCheckAttendanceHistory.setLocationRelativeTo(null);
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_itmViewAttendanceHistoryActionPerformed
 
     private void itmPenaltyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmPenaltyActionPerformed
-       String artisanUsername = name;
-        FrmPenalty frmPenalty =new FrmPenalty(artisanUsername);
-         frmPenalty.setVisible(true); 
+        String artisanUsername = name;
+        FrmPenalty frmPenalty = new FrmPenalty(artisanUsername);
+        frmPenalty.setVisible(true);
         frmPenalty.setLocationRelativeTo(null);
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_itmPenaltyActionPerformed
 
     private void ItmMnuPersonalInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItmMnuPersonalInventoryActionPerformed
@@ -275,7 +291,7 @@ private void cargarImagenes() {
         FrmPersonalInventory frmPersonalInventory = new FrmPersonalInventory();
         frmPersonalInventory.setVisible(true);
         setVisible(false);
-       
+
     }//GEN-LAST:event_ItmMnuPersonalInventoryActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -284,6 +300,36 @@ private void cargarImagenes() {
         frmGeneralInventory.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void mniAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAddProductActionPerformed
+        // TODO add your handling code here:
+        FrmAddProduct frmAddProduct = new FrmAddProduct(this.name);
+        frmAddProduct.setVisible(true);
+        frmAddProduct.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_mniAddProductActionPerformed
+
+    private void mniEditProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditProductActionPerformed
+        // TODO add your handling code here:
+        String productIdStr = JOptionPane.showInputDialog(this, "Ingrese el ID del producto a editar:");
+
+        try {
+            int productId = Integer.parseInt(productIdStr);
+            FrmEditProduct frmEditProduct = new FrmEditProduct(productId, this.name);
+            frmEditProduct.setVisible(true);
+            frmEditProduct.setLocationRelativeTo(null);
+            this.dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un ID válido", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mniEditProductActionPerformed
+
+    private void mniDeletProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDeletProductActionPerformed
+        // TODO add your handling code here:
+        FrmDeleteProduct frmDeleteProduct = new FrmDeleteProduct();
+        frmDeleteProduct.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mniDeletProductActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,13 +381,13 @@ private void cargarImagenes() {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JLabel lblImg1;
     private javax.swing.JLabel lblImg2;
     private javax.swing.JLabel lblImg3;
+    private javax.swing.JMenuItem mniAddProduct;
+    private javax.swing.JMenuItem mniDeletProduct;
+    private javax.swing.JMenuItem mniEditProduct;
     private javax.swing.JMenu mnuAttendance;
     // End of variables declaration//GEN-END:variables
 }
