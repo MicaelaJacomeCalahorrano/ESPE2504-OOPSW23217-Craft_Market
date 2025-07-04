@@ -20,7 +20,7 @@ public class Attendance {
     private boolean present;
 
     private static final MongoDatabase db = MongoConnection.getDatabase();
-    private static final MongoCollection<Document> collection = db.getCollection("attendance");
+    private static final MongoCollection<Document> collection = db.getCollection("Attendance");
 
  
     public Attendance(String username, LocalDate date, boolean present) {

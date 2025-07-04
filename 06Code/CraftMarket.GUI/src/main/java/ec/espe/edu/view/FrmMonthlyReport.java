@@ -40,7 +40,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
         monthName = monthName.toLowerCase();
         for (int i = 0; i < months.length; i++) {
             if (months[i].equals(monthName)) {
-                return i + 1; // porque enero es 1
+                return i + 1;
             }
         }
         return -1; // en caso de error
@@ -107,11 +107,18 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblMonthlyReport);
@@ -192,9 +199,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-
-        String selectedMonthName = cmbMonth.getSelectedItem().toString();
+        String selectedMonthName = (String) cmbMonth.getSelectedItem();
         int month = getMonthNumber(selectedMonthName);
         int year = (int) spnYear.getValue();
 
@@ -215,30 +220,36 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
                 String artisanName = doc.getString("artisanName");
                 String saleDateStr = doc.getString("saleDate");
                 Number totalNumber = doc.get("total", Number.class);
+
+                
+                if (artisanName == null || saleDateStr == null || totalNumber == null) {
+                    continue;
+                }
+
                 float total = totalNumber.floatValue();
                 LocalDate saleDate = LocalDate.parse(saleDateStr);
-                int saleYear = saleDate.getYear();
-                int saleMonth = saleDate.getMonthValue();
 
-                if (saleYear == year && saleMonth == month) {
+                if (saleDate.getYear() == year && saleDate.getMonthValue() == month) {
                     artisanSalesMap.put(artisanName, artisanSalesMap.getOrDefault(artisanName, 0f) + total);
                 }
             }
+
+            cursor.close();
 
             DefaultTableModel model = (DefaultTableModel) tblMonthlyReport.getModel();
             model.setRowCount(0);
 
             if (artisanSalesMap.isEmpty()) {
-                javax.swing.JOptionPane.showMessageDialog(this, "No se encontraron ventas .");
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontraron ventas para ese mes y año.");
                 return;
             }
 
             for (Map.Entry<String, Float> entry : artisanSalesMap.entrySet()) {
                 Object[] row = {
                     entry.getKey(),
-                    selectedMonthName,
+                    selectedMonthName.substring(0, 1).toUpperCase() + selectedMonthName.substring(1), // Capitalizar mes
                     year,
-                    entry.getValue()
+                    String.format("%.2f", entry.getValue()) 
                 };
                 model.addRow(row);
             }

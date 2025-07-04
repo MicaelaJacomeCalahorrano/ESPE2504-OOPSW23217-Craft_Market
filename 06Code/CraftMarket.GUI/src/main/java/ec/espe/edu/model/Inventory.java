@@ -17,7 +17,7 @@ public class Inventory {
     private List<Product> allProducts = new ArrayList<>();
 
     private static final MongoDatabase db = MongoConnection.getDatabase();
-    private static final MongoCollection<Document> collection = db.getCollection("products");
+    private static final MongoCollection<Document> collection = db.getCollection("Product");
 
     public Inventory() {
         loadProductsFromDatabase();

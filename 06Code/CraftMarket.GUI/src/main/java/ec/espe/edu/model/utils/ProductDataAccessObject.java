@@ -24,7 +24,7 @@ public class ProductDataAccessObject {
 
     public ProductDataAccessObject() {
        
-       this.collection = MongoConnection.connect().getCollection("products");
+       this.collection = MongoConnection.connect().getCollection("Product");
     }
 
     public ProductDataAccessObject(int id, String product, double price, int stock, MongoCollection<Document> collection) {
@@ -32,7 +32,7 @@ public class ProductDataAccessObject {
         this.product = product;
         this.price = price;
         this.stock = stock;
-        this.collection = MongoConnection.connect().getCollection("products");
+        this.collection = MongoConnection.connect().getCollection("Product");
     }
     
 

@@ -78,27 +78,23 @@ public class Product {
     }
 
     public static List<Product> getAllProducts() {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
+        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
         List<Product> products = new ArrayList<>();
-        MongoCursor<Document> cursor = collection.find().iterator();
 
-        try {
+        try (MongoCursor<Document> cursor = collection.find().iterator()) {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
 
-                Number unitPriceNumber = doc.get("unitPrice", Number.class);
-                float unitPrice = unitPriceNumber.floatValue();
+                Integer id = doc.getInteger("Id");
+                String name = doc.getString("Producto");
+                Double price = doc.getDouble("Precio");
+                Integer stock = doc.getInteger("Stock");
+                String owner = doc.getString("Artesano");
 
-                products.add(new Product(
-                        doc.getInteger("id"),
-                        doc.getString("name"),
-                        unitPrice,
-                        doc.getInteger("stock"),
-                        doc.getString("owner")
-                ));
+                if (id != null && name != null && price != null && stock != null && owner != null) {
+                    products.add(new Product(id, name, price, stock, owner));
+                }
             }
-        } finally {
-            cursor.close();
         }
         return products;
     }
@@ -134,71 +130,71 @@ public class Product {
     }
 
     public static void editProductPrice(Scanner scanner, String productId) {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
+         MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
 
         System.out.print("Nuevo precio: ");
-        float newPrice = scanner.nextFloat();
+        double newPrice = scanner.nextDouble();
         scanner.nextLine();
 
-        collection.updateOne(new Document("id", productId),
-                new Document("$set", new Document("unitPrice", newPrice)));
+        collection.updateOne(new Document("Id", productId),
+                new Document("$set", new Document("Precio", newPrice)));
     }
 
     public static void editProductStock(Scanner scanner, String productId) {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
+        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
 
         System.out.print("Nuevo stock: ");
         int newStock = scanner.nextInt();
         scanner.nextLine();
 
-        collection.updateOne(new Document("id", productId),
-                new Document("$set", new Document("stock", newStock)));
+        collection.updateOne(new Document("Id", productId),
+                new Document("$set", new Document("Stock", newStock)));
     }
 
     public static void addProduct(Product product) {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
-        Document doc = new Document("id", product.getId())
-                .append("name", product.getName())
-                .append("unitPrice", product.getUnitPrice())
-                .append("stock", product.getStock())
-                .append("owner", product.getOwner());
+        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
+        Document doc = new Document("Id", product.getId())
+                .append("Producto", product.getName())
+                .append("Precio", product.getUnitPrice())
+                .append("Stock", product.getStock())
+                .append("Artesano", product.getOwner());
         collection.insertOne(doc);
     }
 
     public static void updateProductStock(int productId, int newStock) {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
-        collection.updateOne(new Document("id", productId),
-                new Document("$set", new Document("stock", newStock)));
+        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
+        collection.updateOne(new Document("Id", productId),
+                new Document("$set", new Document("Stock", newStock)));
     }
 
     public static void updateProductPrice(String productId, float newPrice) {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
-        collection.updateOne(new Document("id", productId),
-                new Document("$set", new Document("unitPrice", newPrice)));
+        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
+        collection.updateOne(new Document("Id", productId),
+                new Document("$set", new Document("Precio", newPrice)));
     }
 
-    public static void deleteProduct(String productId) {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
-        collection.deleteOne(new Document("id", productId));
+    public static void deleteProduct(int productId) {
+        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
+        collection.deleteOne(new Document("Id", productId));
     }
 
     public static Product findById(int productId) {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
-        Document doc = collection.find(new Document("id", productId)).first();
-        if (doc == null) {
-            return null;
+        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
+        Document doc = collection.find(new Document("Id", productId)).first();
+
+        if (doc != null) {
+            Integer id = doc.getInteger("Id");
+            String name = doc.getString("Producto");
+            Double price = doc.getDouble("Precio");
+            Integer stock = doc.getInteger("Stock");
+            String owner = doc.getString("Artesano");
+
+            if (id != null && name != null && price != null && stock != null && owner != null) {
+                return new Product(id, name, price, stock, owner);
+            }
         }
-
-        Number unitPriceNumber = doc.get("unitPrice", Number.class);
-        float unitPrice = unitPriceNumber.floatValue();
-
-        return new Product(
-                doc.getInteger("id"),
-                doc.getString("name"),
-                unitPrice,
-                doc.getInteger("stock"),
-                doc.getString("owner")
-        );
+        return null;
+    }
     }
 
-}
+

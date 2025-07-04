@@ -110,7 +110,7 @@ public class SalesReport {
     }
 
     public static void registerSale(SalesReport sale) {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("sales");
+       MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("sales");
         Document doc = new Document("productName", sale.productName)
                 .append("unitPrice", sale.unitPrice)
                 .append("quantity", sale.quantity)
@@ -129,16 +129,21 @@ public class SalesReport {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
 
-                Number unitPriceNumber = doc.get("unitPrice", Number.class);
-                Number totalNumber = doc.get("total", Number.class);
+                String productName = doc.getString("productName");
+                Double unitPrice = doc.getDouble("unitPrice");
+                Integer quantity = doc.getInteger("quantity");
+                Double total = doc.getDouble("total");
+                String artisanName = doc.getString("artisanName");
 
-                sales.add(new SalesReport(
-                        doc.getString("productName"),
-                        unitPriceNumber.floatValue(),
-                        doc.getInteger("quantity"),
-                        totalNumber.floatValue(),
-                        doc.getString("artisanName")
-                ));
+                if (productName != null && unitPrice != null && quantity != null && total != null && artisanName != null) {
+                    sales.add(new SalesReport(
+                            productName,
+                            unitPrice,
+                            quantity,
+                            total,
+                            artisanName
+                    ));
+                }
             }
         } finally {
             cursor.close();

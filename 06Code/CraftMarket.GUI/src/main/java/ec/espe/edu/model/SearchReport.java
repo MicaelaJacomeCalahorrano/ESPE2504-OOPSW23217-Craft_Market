@@ -14,30 +14,41 @@ public class SearchReport {
 
     public static void printReportByDate(LocalDate date) {
         MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("sales");
-        MongoCursor<Document> cursor = collection.find(new Document("saleDate", date.toString())).iterator();
 
-        System.out.println("\n----- Reporte de ventas de " + date + " -----");
+        System.out.println("\n----- Reporte de ventas del " + date + " -----");
 
-        try {
+        try (MongoCursor<Document> cursor = collection.find(new Document("saleDate", date.toString())).iterator()) {
+            boolean found = false;
+
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
 
                 String productName = doc.getString("productName");
-                Number unitPriceNumber = doc.get("unitPrice", Number.class);
-                float unitPrice = unitPriceNumber != null ? unitPriceNumber.floatValue() : 0.0f;
-
-                Integer quantity = doc.getInteger("quantity", 0);
-
-                Number totalNumber = doc.get("total", Number.class);
-                float total = totalNumber != null ? totalNumber.floatValue() : 0.0f;
-
+                Double unitPrice = doc.getDouble("unitPrice");
+                Integer quantity = doc.getInteger("quantity");
+                Double total = doc.getDouble("total");
                 String artisanName = doc.getString("artisanName");
 
-                System.out.println(productName + " // $" + unitPrice + " // " + quantity + " uds // $" + total + " // " + artisanName);
+                if (productName == null || unitPrice == null || quantity == null || total == null || artisanName == null) {
+                    continue;
+                }
+
+                System.out.println(
+                        "Producto: " + productName +
+                        " | Precio: $" + unitPrice +
+                        " | Cantidad: " + quantity +
+                        " | Total: $" + total +
+                        " | Artesano: " + artisanName
+                );
+                found = true;
             }
-        } finally {
-            cursor.close();
+
+            if (!found) {
+                System.out.println("No se encontraron ventas para esta fecha.");
+            }
+
+        } catch (Exception e) {
+            System.err.println("[SearchReport] Error al generar el reporte: " + e.getMessage());
         }
     }
-
 }

@@ -51,28 +51,27 @@ public class MonthlyReport {
      * @return 
      */
     public static List<MonthlyReport> generateMonthlyReport() {
-        MongoDatabase db = MongoConnection.getDatabase();
+         MongoDatabase db = MongoConnection.getDatabase();
         MongoCollection<Document> collection = db.getCollection("sales");
         List<MonthlyReport> reports = new ArrayList<>();
 
-        MongoCursor<Document> cursor = collection.find().iterator();
         Map<String, Float> totalsMap = new HashMap<>();
 
-        try {
+        try (MongoCursor<Document> cursor = collection.find().iterator()) {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
+
                 String artisanName = doc.getString("artisanName");
                 String saleDateStr = doc.getString("saleDate"); // yyyy-MM-dd
 
-                // Manejo seguro de 'total' por posibles Integer/Double
-                float total;
-                Object totalObj = doc.get("total");
-                if (totalObj instanceof Double) {
-                    total = ((Double) totalObj).floatValue();
-                } else if (totalObj instanceof Integer) {
-                    total = ((Integer) totalObj).floatValue();
-                } else {
-                    total = 0.0f;
+                Double total = doc.getDouble("total");
+                if (total == null) {
+                    Number totalNumber = doc.get("total", Number.class);
+                    total = totalNumber != null ? totalNumber.doubleValue() : 0.0;
+                }
+
+                if (artisanName == null || saleDateStr == null) {
+                    continue;
                 }
 
                 LocalDate saleDate = LocalDate.parse(saleDateStr);
@@ -80,15 +79,14 @@ public class MonthlyReport {
                 int month = saleDate.getMonthValue();
 
                 String key = artisanName + "-" + year + "-" + month;
-                totalsMap.put(key, totalsMap.getOrDefault(key, 0f) + total);
+                totalsMap.put(key, totalsMap.getOrDefault(key, 0f) + total.floatValue());
             }
-        } finally {
-            cursor.close();
         }
 
-        // Crear objetos MonthlyReport a partir del mapa
         for (String key : totalsMap.keySet()) {
             String[] parts = key.split("-");
+            if (parts.length != 3) continue;
+
             String artisanName = parts[0];
             int year = Integer.parseInt(parts[1]);
             int month = Integer.parseInt(parts[2]);
