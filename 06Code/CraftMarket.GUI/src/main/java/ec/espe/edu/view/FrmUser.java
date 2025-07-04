@@ -5,8 +5,8 @@
 package ec.espe.edu.view;
 
 import ec.espe.edu.model.controller.UserController;
+import ec.espe.edu.model.controller.UserController.LoginResult;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
@@ -20,26 +20,6 @@ public class FrmUser extends javax.swing.JFrame {
     public FrmUser() {
         initComponents();
         setLocationRelativeTo(null);
-        jButton1.addActionListener(evt -> {
-            String username = txtUser.getText();
-            String password = new String(pswPassword.getPassword());
-            
-
-            if (UserController.login(username, password)) {
-                String artisanName = UserController.getArtisanName(username, password);
-                JOptionPane.showMessageDialog(this, "Bienvenido, " + artisanName);
-                FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(artisanName);
-                frmPrincipalMenu.setVisible(true);
-                frmPrincipalMenu.setLocationRelativeTo(null);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
-            }
-        });
-    }
-
-    public FrmUser(JTextField txtUser) {
-        this.txtUser = txtUser;
     }
 
     /**
@@ -59,7 +39,7 @@ public class FrmUser extends javax.swing.JFrame {
         txtUser = new javax.swing.JTextField();
         pswPassword = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,10 +95,10 @@ public class FrmUser extends javax.swing.JFrame {
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Continuar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnUser.setText("Continuar");
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnUserActionPerformed(evt);
             }
         });
 
@@ -128,14 +108,14 @@ public class FrmUser extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(156, 156, 156)
-                .addComponent(jButton1)
+                .addComponent(btnUser)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jButton1)
+                .addComponent(btnUser)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
@@ -164,9 +144,24 @@ public class FrmUser extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        
+        String username = txtUser.getText();
+        String password = new String(pswPassword.getPassword());
+
+        // Llama al método processLogin del controlador
+        LoginResult result = UserController.processLogin(username, password);
+
+        JOptionPane.showMessageDialog(this, result.getMessage());
+         if (result.isSuccess()) {
+            this.dispose(); 
+           
+            new FrmPrincipalMenu(result.getArtisanName()).setVisible(true);
+        } else {
+            
+             pswPassword.setText("");
+        }
+    }//GEN-LAST:event_btnUserActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
@@ -174,7 +169,7 @@ public class FrmUser extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

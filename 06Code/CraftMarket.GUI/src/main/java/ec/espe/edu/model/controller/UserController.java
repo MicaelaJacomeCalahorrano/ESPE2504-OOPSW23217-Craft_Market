@@ -1,4 +1,5 @@
 package ec.espe.edu.model.controller;
+
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import ec.espe.edu.model.utils.MongoConnection;
@@ -29,4 +30,40 @@ public class UserController {
         }
         return "Artesano desconocido";
     }
+     public static UserController.LoginResult processLogin(String username, String password) {
+        if (username.isEmpty() || password.isEmpty()) {
+            return new UserController.LoginResult(false, null, "Por favor, ingrese usuario y contraseña.");
+        }
+
+        if (login(username, password)) {
+            String artisanName = getArtisanName(username, password);
+            return new UserController.LoginResult(true, artisanName, "Bienvenido, " + artisanName);
+        } else {
+            return new UserController.LoginResult(false, null, "Usuario o contraseña incorrectos.");
+        }
+    }
+     public static class LoginResult {
+        private final boolean success;
+        private final String artisanName;
+        private final String message;
+
+        public LoginResult(boolean success, String artisanName, String message) {
+            this.success = success;
+            this.artisanName = artisanName;
+            this.message = message;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public String getArtisanName() {
+            return artisanName;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
 }
+
