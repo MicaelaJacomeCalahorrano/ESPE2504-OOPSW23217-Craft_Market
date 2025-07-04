@@ -4,6 +4,10 @@
  */
 package ec.espe.edu.view;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author jorge
@@ -18,12 +22,30 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     public FrmPrincipalMenu() {
         this.name = "";
         initComponents();
+         cargarImagenes();
     }
 
     public FrmPrincipalMenu(String name) {
         this.name = name;
         initComponents();
+        cargarImagenes();
     }
+    private void cargarImagenEnLabel(JLabel label, String ruta, int ancho, int alto) {
+    try {
+        ImageIcon icon = new ImageIcon(getClass().getResource(ruta));
+        Image img = icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+        label.setIcon(new ImageIcon(img));
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, " " + ruta);
+    }
+}
+
+
+private void cargarImagenes() {
+    cargarImagenEnLabel(lblImg1, "/images/cedazo2.jpg", 200, 150);
+    cargarImagenEnLabel(lblImg2, "/images/Cedazo.jpg", 200, 150);
+    cargarImagenEnLabel(lblImg3, "/images/cedazo3.jpg", 200, 150);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,6 +57,9 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        lblImg1 = new javax.swing.JLabel();
+        lblImg2 = new javax.swing.JLabel();
+        lblImg3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -56,7 +81,8 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Craft Market logo");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Craft Market ");
 
         jMenu1.setText("File");
 
@@ -166,16 +192,28 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(236, 236, 236)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblImg2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblImg3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblImg3, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                    .addComponent(lblImg2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblImg1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(88, 88, 88))
         );
 
         pack();
@@ -301,6 +339,9 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JLabel lblImg1;
+    private javax.swing.JLabel lblImg2;
+    private javax.swing.JLabel lblImg3;
     private javax.swing.JMenu mnuAttendance;
     // End of variables declaration//GEN-END:variables
 }
