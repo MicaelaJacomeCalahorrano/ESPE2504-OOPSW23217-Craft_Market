@@ -139,6 +139,9 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JTextField" name="txtArtesanoCheck">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtArtesanoCheckActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
