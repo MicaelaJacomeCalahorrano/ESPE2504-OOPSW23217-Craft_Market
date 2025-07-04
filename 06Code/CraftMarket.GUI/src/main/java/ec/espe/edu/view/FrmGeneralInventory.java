@@ -4,10 +4,11 @@
  */
 package ec.espe.edu.view;
 
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import ec.espe.edu.model.utils.MongoConnection;
+
+import ec.espe.edu.model.Inventory;
+import java.awt.print.PrinterException;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 
@@ -16,7 +17,8 @@ import org.bson.Document;
  * @author jorge
  */
 public class FrmGeneralInventory extends javax.swing.JFrame {
-    MongoDatabase database = MongoConnection.connect();
+    
+    private Inventory inventory;
     
 
     /**
@@ -24,6 +26,7 @@ public class FrmGeneralInventory extends javax.swing.JFrame {
      */
     public FrmGeneralInventory() {
         initComponents();
+        inventory = new Inventory();
     }
 
     /**
@@ -39,6 +42,7 @@ public class FrmGeneralInventory extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btmBack = new javax.swing.JButton();
+        btmPrint = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGeneralInventory = new javax.swing.JTable();
@@ -77,21 +81,32 @@ public class FrmGeneralInventory extends javax.swing.JFrame {
             }
         });
 
+        btmPrint.setText("Imprimir");
+        btmPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(103, 103, 103)
                 .addComponent(btmBack)
-                .addGap(216, 216, 216))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btmPrint)
+                .addGap(127, 127, 127))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(btmBack)
-                .addGap(14, 14, 14))
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btmBack)
+                    .addComponent(btmPrint))
+                .addGap(15, 15, 15))
         );
 
         tblGeneralInventory.setModel(new javax.swing.table.DefaultTableModel(
@@ -155,29 +170,8 @@ public class FrmGeneralInventory extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        MongoCollection<Document> collection = database.getCollection("Product");
-        FindIterable<Document> products = collection.find();
+        tblGeneralInventory.setModel(inventory.getGeneralInventoryTableModel());
         
-        DefaultTableModel model = new DefaultTableModel(
-        new Object[]{"Producto", "Precio", "Stock", "Artesano"}, 0
-        ) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        
-        for (Document doc : products) {
-        int id = doc.getInteger("Id");
-            String productName = doc.getString("Producto");
-            double price = doc.getDouble("Precio");
-            int stock = doc.getInteger("Stock");
-            String artisan = doc.getString("Artesano");
-
-        model.addRow(new Object[]{productName, price, stock, artisan});
-        }
-
-        tblGeneralInventory.setModel(model);
         
     }//GEN-LAST:event_formWindowOpened
 
@@ -187,6 +181,20 @@ public class FrmGeneralInventory extends javax.swing.JFrame {
         frmPrincipalMenu.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_btmBackActionPerformed
+
+    private void btmPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmPrintActionPerformed
+        // TODO add your handling code here:
+        try {
+            boolean complete = tblGeneralInventory.print(JTable.PrintMode.FIT_WIDTH, null, null);
+            if (complete) {
+                JOptionPane.showMessageDialog(this, "Impresión completada.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Impresión cancelada.");
+            }
+        } catch (PrinterException pe) {
+            JOptionPane.showMessageDialog(this, "Error durante la impresión: " + pe.getMessage(), "Error de Impresión", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btmPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,6 +235,7 @@ public class FrmGeneralInventory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmBack;
+    private javax.swing.JButton btmPrint;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -4,17 +4,14 @@
  */
 package ec.espe.edu.view;
 
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import ec.espe.edu.model.Artisan;
-import ec.espe.edu.model.utils.MongoConnection;
+import ec.espe.edu.model.Inventory;
 import java.awt.Color;
+import java.awt.print.PrinterException;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import org.bson.Document;
-import org.bson.conversions.Bson;
+
 
 /**
  *
@@ -23,13 +20,14 @@ import org.bson.conversions.Bson;
 public class FrmPersonalInventory extends javax.swing.JFrame {
     Artisan artisan = new Artisan();
     String artisanName;
-    MongoDatabase database = MongoConnection.connect();
+    private Inventory inventory;
 
     /**
      * Creates new form PersonalInventory
      */
     public FrmPersonalInventory() {
         initComponents();
+        inventory = new Inventory();
     }
 
     /**
@@ -48,6 +46,7 @@ public class FrmPersonalInventory extends javax.swing.JFrame {
         txtPersonalName = new javax.swing.JTextField();
         btmSearchInventory = new javax.swing.JButton();
         btmGoBack = new javax.swing.JButton();
+        btmPrint = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPersonalInventory = new javax.swing.JTable();
@@ -70,7 +69,7 @@ public class FrmPersonalInventory extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -105,31 +104,46 @@ public class FrmPersonalInventory extends javax.swing.JFrame {
             }
         });
 
+        btmPrint.setText("Imprimir");
+        btmPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btmPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPersonalName, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btmSearchInventory)
-                .addGap(29, 29, 29)
-                .addComponent(btmGoBack)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPersonalName, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(btmSearchInventory)
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btmPrint)
+                        .addGap(83, 83, 83)
+                        .addComponent(btmGoBack)
+                        .addGap(121, 121, 121))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPersonalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btmSearchInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btmGoBack))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(btmSearchInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btmGoBack)
+                    .addComponent(btmPrint))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -204,57 +218,39 @@ public class FrmPersonalInventory extends javax.swing.JFrame {
             txtPersonalName.setForeground(Color.red);
             JOptionPane.showMessageDialog(rootPane, "Por favor introdusca un nombre");
         }
-        MongoCollection<Document> artisanCollection = database.getCollection("Artisan");
-        Bson artisanFilter = Filters.eq("username", artisanName);
-        Document artisanFound = artisanCollection.find(artisanFilter).first();
         
-        if(artisanFound == null){
+        if(!inventory.artisanExists(artisanName)){
             txtPersonalName.setForeground(Color.red);
             JOptionPane.showMessageDialog(rootPane, "El artesano no esta registrado");
+            DefaultTableModel emptyModel = new DefaultTableModel();
+            emptyModel.addColumn("Id");
+            emptyModel.addColumn("Producto");
+            emptyModel.addColumn("Precio");
+            emptyModel.addColumn("Stock");
+            tblPersonalInventory.setModel(emptyModel);
             return;
         }
         
         txtPersonalName.setForeground(Color.black);
         
-        MongoCollection<Document> productCollection = database.getCollection("Product");
-        
-        Bson filter = Filters.eq("Artesano", artisanName);
-        FindIterable<Document> documents = productCollection.find(filter);
-        
-        boolean hasProducts = false;
-        
-        DefaultTableModel model = new DefaultTableModel(){
-            public boolean isCallEditable(int row, int column){
-                return false;
-            }
-        };
-        model.addColumn("Id");
-        model.addColumn("Producto");
-        model.addColumn("Precio");
-        model.addColumn("Stock");
-        
-        for(Document doc : documents){
-            hasProducts = true;
-            int id = doc.getInteger("Id");
-            String productName = doc.getString("Producto");
-            double price = doc.getDouble("Precio");
-            int stock = doc.getInteger("Stock");
-            
-            model.addRow(new Object[]{id, productName, price, stock});
-            
-        }
-        
-        if(!hasProducts){
+        if(!inventory.hasProducts(artisanName)){
             txtPersonalName.setForeground(Color.red);
-            JOptionPane.showMessageDialog(rootPane, "El Artesano aun no ha registrado productos");
+            JOptionPane.showMessageDialog(rootPane, "El artesano no ha registrado ningun producto");
+            DefaultTableModel emptyModel = new DefaultTableModel();
+            emptyModel.addColumn("Id");
+            emptyModel.addColumn("Producto");
+            emptyModel.addColumn("Precio");
+            emptyModel.addColumn("Stock");
+            tblPersonalInventory.setModel(emptyModel);
             return;
-            
         }
+        
+        
+        DefaultTableModel model = inventory.getPersonalInventoryTableModel(artisanName);
         tblPersonalInventory.setModel(model);
         
         
-        
-        
+           
     }//GEN-LAST:event_btmSearchInventoryActionPerformed
 
     private void txtPersonalNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPersonalNameFocusLost
@@ -277,6 +273,20 @@ public class FrmPersonalInventory extends javax.swing.JFrame {
         frmPrincipalMenu.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_btmGoBackActionPerformed
+
+    private void btmPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmPrintActionPerformed
+        // TODO add your handling code here:
+        try {
+            boolean complete = tblPersonalInventory.print(JTable.PrintMode.FIT_WIDTH, null, null);
+            if (complete) {
+                JOptionPane.showMessageDialog(this, "Impresión completada.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Impresión cancelada.");
+            }
+        } catch (PrinterException pe) {
+            JOptionPane.showMessageDialog(this, "Error durante la impresión: " + pe.getMessage(), "Error de Impresión", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btmPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,6 +326,7 @@ public class FrmPersonalInventory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmGoBack;
+    private javax.swing.JButton btmPrint;
     private javax.swing.JButton btmSearchInventory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
