@@ -249,6 +249,8 @@ public class FrmAddProduct extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
+        frmPrincipalMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
