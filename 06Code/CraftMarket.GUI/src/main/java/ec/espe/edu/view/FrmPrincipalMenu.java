@@ -316,12 +316,13 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
     private void mniEditProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditProductActionPerformed
         // TODO add your handling code here:
-        boolean exitLoop = false; // Controla si se debe salir del bucle
+        boolean exitLoop = false;
+        // "this" se refiere al FrmPrincipalMenu actual
+        final FrmPrincipalMenu menuPrincipal = this; // Referencia local con nombre más claro
 
         while (!exitLoop) {
             String productIdStr = JOptionPane.showInputDialog(this, "Ingrese el ID del producto a editar:");
 
-            
             if (productIdStr == null) {
                 exitLoop = true;
                 continue;
@@ -331,26 +332,30 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
                 int productId = Integer.parseInt(productIdStr);
                 Product product = Product.findById(productId);
 
-                
                 if (product == null) {
                     JOptionPane.showMessageDialog(this, "El producto no existe", "Error", JOptionPane.ERROR_MESSAGE);
-                    continue; // Vuelve a pedir el ID
+                    continue;
                 }
 
-                
                 if (!product.getOwner().equals(this.name)) {
                     JOptionPane.showMessageDialog(this, "El producto no pertenece a este artesano", "Error", JOptionPane.ERROR_MESSAGE);
-                    continue; // Vuelve a pedir el ID
+                    continue;
                 }
 
-                
-                FrmEditProduct frmEditProduct = new FrmEditProduct(productId, this.name);
-                frmEditProduct.setVisible(true);
-                this.dispose(); 
-                exitLoop = true; 
+                this.setVisible(false); // Ocultamos el menú principal
+
+                FrmEditProduct editForm = new FrmEditProduct(productId, this.name);
+                editForm.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                        FrmPrincipalMenu.this.setVisible(true); // Mostrar el menú principal al cerrar la edición
+                    }
+                });
+                editForm.setVisible(true);
+                exitLoop = true;
 
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "⚠️ Ingrese un ID válido (número entero)", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ingrese un ID válido (número entero)", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_mniEditProductActionPerformed

@@ -219,22 +219,19 @@ public class FrmEditProduct extends javax.swing.JFrame {
             Product.updateProduct(productToEdit);
 
             JOptionPane.showMessageDialog(this, "Producto actualizado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            this.setVisible(false);
+            this.dispose();
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Precio y Stock deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
-        frmPrincipalMenu.setVisible(true);
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
-        frmPrincipalMenu.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
