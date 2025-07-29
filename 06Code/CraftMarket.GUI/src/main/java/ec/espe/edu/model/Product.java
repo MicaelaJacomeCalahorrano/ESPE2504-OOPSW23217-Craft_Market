@@ -154,11 +154,11 @@ public class Product {
 
     public static void addProduct(Product product) {
         MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
-        Document doc = new Document("id", product.getId())
-                .append("name", product.getName())
-                .append("unitPrice", product.getUnitPrice())
-                .append("stock", product.getStock())
-                .append("owner", product.getOwner());
+        Document doc = new Document("Id", product.getId())
+                .append("Producto", product.getName())
+                .append("Precio", product.getUnitPrice())
+                .append("Stock", product.getStock())
+                .append("Artesano", product.getOwner());
         collection.insertOne(doc);
     }
 
@@ -166,15 +166,15 @@ public class Product {
         MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("products");
         List<Product> products = new ArrayList<>();
 
-        try (MongoCursor<Document> cursor = collection.find(new Document("owner", artisanName)).iterator()) {
+        try (MongoCursor<Document> cursor = collection.find(new Document()).iterator()) {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 products.add(new Product(
-                        doc.getInteger("id"),
-                        doc.getString("name"),
-                        doc.getDouble("unitPrice"),
-                        doc.getInteger("stock"),
-                        doc.getString("owner")
+                        doc.getInteger("Id"),
+                        doc.getString("Producto"),
+                        doc.getDouble("Precio"),
+                        doc.getInteger("Stock"),
+                        doc.getString("Artesano")
                 ));
             }
         }
@@ -218,22 +218,15 @@ public class Product {
     
 
     public static Product findById(int productId) {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
-        Document doc = collection.find(new Document("id", productId)).first();
-        if (doc == null) {
-            return null;
-        }
-
-        Number unitPriceNumber = doc.get("unitPrice", Number.class);
-        float unitPrice = unitPriceNumber.floatValue();
-
-        return new Product(
-                doc.getInteger("id"),
-                doc.getString("name"),
-                unitPrice,
-                doc.getInteger("stock"),
-                doc.getString("owner")
-        );
+        Document doc = MongoConnection.getDatabase().getCollection("Product")
+                .find(new Document("id", productId)).first();
+        return (doc != null) ? new Product(
+            doc.getInteger("id"),
+            doc.getString("producto"),
+            doc.getDouble("precio"),
+            doc.getInteger("stock"),
+            doc.getString("artesano")
+        ) : null;
     }
 
 }

@@ -5,6 +5,7 @@ import ec.espe.edu.model.Product;
 import ec.espe.edu.utils.ProductDataAccessObject;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import ec.espe.edu.controller.AddProductController;
 
 /**
  *
@@ -12,19 +13,39 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class FrmAddProduct extends javax.swing.JFrame {
-    private final String owner;
+
+    private static String loggedInUsername; // Cambiado a static
+    private static String lastId = "";
+    private static String lastProductName = "";
+    private static String lastPrice = "";
+    private static String lastStock = "";
+    private static String lastOwner = "";
+
     /**
      * Creates new form FrmAddProduct
-     * @param owner
+     *
+     * @param username
      */
-    public FrmAddProduct(String owner) {
+    public FrmAddProduct(String username) {
+        // Actualizar el nombre del usuario solo si se proporciona uno nuevo
+        if (username != null && !username.isEmpty()) {
+            loggedInUsername = username;
+            lastOwner = username; // Guardar también en lastOwner
+        }
+        
         initComponents();
-        setLocationRelativeTo(null);
-        this.owner = owner;
-        txtOwner.setText(owner); 
+        
+        // Establecer el valor del artesano (usa lastOwner si loggedInUsername está vacío)
+        txtOwner.setText(lastOwner.isEmpty() ? loggedInUsername : lastOwner);
         txtOwner.setEditable(false);
-    }
 
+        // Cargar los últimos valores ingresados
+        txtId.setText(lastId);
+        txtProductName.setText(lastProductName);
+        txtPrice.setText(lastPrice);
+        txtStock.setText(lastStock);
+    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -205,46 +226,27 @@ public class FrmAddProduct extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-       try {
-            // Validar campos vacíos
-            if (txtId.getText().isEmpty() || txtProductName.getText().isEmpty()
-                    || txtPrice.getText().isEmpty() || txtStock.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        String Id = txtId.getText();
+        String Producto = txtProductName.getText();
+        String Precio = txtPrice.getText();
+        String Stock = txtStock.getText();
+        String Artesano = txtOwner.getText();
 
-            // Validar formato numérico
-            int id = Integer.parseInt(txtId.getText());
-            double price = Double.parseDouble(txtPrice.getText());
-            int stock = Integer.parseInt(txtStock.getText());
-            String productName = txtProductName.getText();
-            String owner = txtOwner.getText();
+        // Llamar al controlador
+        boolean success = AddProductController.addProduct(Id, Producto, Precio, Stock, Artesano, this);
 
-            // Validar valores positivos
-            if (price <= 0 || stock <= 0) {
-                JOptionPane.showMessageDialog(this, "Precio y Stock deben ser valores positivos", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Verificar si el ID ya existe
-            if (Product.findById(id) != null) {
-                JOptionPane.showMessageDialog(this, "El ID del producto ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Crear y guardar producto
-            Product product = new Product(id, productName, price, stock, owner);
-            Product.addProduct(product);
-
-            JOptionPane.showMessageDialog(this, "Producto guardado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose(); // Cerrar ventana
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID, Precio y Stock deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        // Si fue exitoso, guardar los valores y cerrar la ventana
+        if (success) {
+            lastId = Id;
+            lastProductName = Producto;
+            lastPrice = Precio;
+            lastStock = Stock;
+            lastOwner = Artesano;
+            this.dispose();
         }
-    
+        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
+        frmPrincipalMenu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
