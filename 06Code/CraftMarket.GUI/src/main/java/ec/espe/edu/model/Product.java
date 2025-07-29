@@ -3,7 +3,7 @@ package ec.espe.edu.model;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.result.DeleteResult;
-import ec.espe.edu.model.utils.MongoConnection;
+import ec.espe.edu.utils.MongoConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

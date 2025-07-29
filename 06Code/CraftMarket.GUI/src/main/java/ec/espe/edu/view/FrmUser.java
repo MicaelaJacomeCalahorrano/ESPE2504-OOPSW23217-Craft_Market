@@ -4,8 +4,8 @@
  */
 package ec.espe.edu.view;
 
-import ec.espe.edu.model.controller.UserController;
-import ec.espe.edu.model.controller.UserController.LoginResult;
+import ec.espe.edu.controller.UserController;
+import ec.espe.edu.controller.UserController.LoginResult;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

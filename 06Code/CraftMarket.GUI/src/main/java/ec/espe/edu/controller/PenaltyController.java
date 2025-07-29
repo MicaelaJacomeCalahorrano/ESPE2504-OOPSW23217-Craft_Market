@@ -13,7 +13,7 @@ package ec.espe.edu.model.controller;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import ec.espe.edu.model.utils.MongoConnection;
+import ec.espe.edu.utils.MongoConnection;
 import org.bson.Document;
 
 import java.text.SimpleDateFormat;

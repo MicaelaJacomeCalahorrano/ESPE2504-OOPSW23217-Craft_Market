@@ -2,7 +2,7 @@ package ec.espe.edu.model;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import ec.espe.edu.model.utils.MongoConnection;
+import ec.espe.edu.utils.MongoConnection;
 import java.time.LocalDate;
 import org.bson.Document;
 

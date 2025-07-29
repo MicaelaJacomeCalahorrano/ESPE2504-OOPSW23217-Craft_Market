@@ -4,7 +4,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import ec.espe.edu.model.utils.MongoConnection;
+import ec.espe.edu.utils.MongoConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

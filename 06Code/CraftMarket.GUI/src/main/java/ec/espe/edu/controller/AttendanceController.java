@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ec.espe.edu.model.controller;
+package ec.espe.edu.controller;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import ec.espe.edu.model.utils.MongoConnection;
+import ec.espe.edu.utils.MongoConnection;
 import org.bson.Document;
 import com.mongodb.client.FindIterable;
 import java.text.ParseException;

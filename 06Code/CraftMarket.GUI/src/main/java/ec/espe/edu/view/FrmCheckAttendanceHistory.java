@@ -6,8 +6,8 @@ package ec.espe.edu.view;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import ec.espe.edu.model.controller.AttendanceController; // Import the controller
-import ec.espe.edu.model.utils.MongoConnection;
+import ec.espe.edu.controller.AttendanceController; // Import the controller
+import ec.espe.edu.utils.MongoConnection;
 import org.bson.Document;
 import com.mongodb.client.FindIterable; 
 
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import java.awt.print.PrinterException; 
 import javax.swing.JTable.PrintMode;
 
-import ec.espe.edu.model.controller.AttendanceHistoryController;
+import ec.espe.edu.controller.AttendanceHistoryController;
 import javax.swing.JTable;
  
 /**

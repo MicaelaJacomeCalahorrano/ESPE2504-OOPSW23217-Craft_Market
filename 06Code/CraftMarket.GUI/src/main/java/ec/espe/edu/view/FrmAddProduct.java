@@ -2,7 +2,7 @@
 package ec.espe.edu.view;
 
 import ec.espe.edu.model.Product;
-import ec.espe.edu.model.utils.ProductDataAccessObject;
+import ec.espe.edu.utils.ProductDataAccessObject;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

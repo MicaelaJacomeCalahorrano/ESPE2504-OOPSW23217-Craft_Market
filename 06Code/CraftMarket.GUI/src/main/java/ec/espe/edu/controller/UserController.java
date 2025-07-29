@@ -1,8 +1,8 @@
-package ec.espe.edu.model.controller;
+package ec.espe.edu.controller;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import ec.espe.edu.model.utils.MongoConnection;
+import ec.espe.edu.utils.MongoConnection;
 import org.bson.Document;
 
 /**

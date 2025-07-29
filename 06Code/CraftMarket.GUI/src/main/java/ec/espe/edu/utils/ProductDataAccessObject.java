@@ -1,4 +1,4 @@
-package ec.espe.edu.model.utils;
+package ec.espe.edu.utils;
 
 /**
  *

@@ -4,8 +4,8 @@
  */
 package ec.espe.edu.view;
 
-import ec.espe.edu.model.controller.AttendanceController;
-import ec.espe.edu.model.controller.AttendanceController.RegisterAttendanceResult;
+import ec.espe.edu.controller.AttendanceController;
+import ec.espe.edu.controller.AttendanceController.RegisterAttendanceResult;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
