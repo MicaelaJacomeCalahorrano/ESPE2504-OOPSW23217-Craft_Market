@@ -5,8 +5,11 @@
 package ec.espe.edu.view;
 
 
+import ec.espe.edu.controller.AttendanceController;
 import ec.espe.edu.model.Inventory;
 import java.awt.print.PrinterException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -19,14 +22,20 @@ import org.bson.Document;
 public class FrmGeneralInventory extends javax.swing.JFrame {
     
     private Inventory inventory;
+    private String loggedInUsername;
     
 
     /**
      * Creates new form FrmGeneralInventory
      */
-    public FrmGeneralInventory() {
+    public FrmGeneralInventory(String username) {
+        this.loggedInUsername = username;
         initComponents();
         inventory = new Inventory();
+        
+        
+
+
     }
 
     /**
@@ -177,9 +186,10 @@ public class FrmGeneralInventory extends javax.swing.JFrame {
 
     private void btmBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmBackActionPerformed
         // TODO add your handling code here:
-        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
+        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(loggedInUsername);
         frmPrincipalMenu.setVisible(true);
-        setVisible(false);
+        frmPrincipalMenu.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btmBackActionPerformed
 
     private void btmPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmPrintActionPerformed
@@ -226,7 +236,7 @@ public class FrmGeneralInventory extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmGeneralInventory().setVisible(true);
+                new FrmGeneralInventory("usuario de prueba").setVisible(true);
             }
         });
         

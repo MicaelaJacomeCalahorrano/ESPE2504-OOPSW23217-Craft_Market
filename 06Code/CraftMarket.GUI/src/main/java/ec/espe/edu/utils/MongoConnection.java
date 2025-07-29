@@ -1,5 +1,5 @@
 
-package ec.espe.edu.model.utils;
+package ec.espe.edu.utils;
 
 
 import com.mongodb.client.MongoClient;

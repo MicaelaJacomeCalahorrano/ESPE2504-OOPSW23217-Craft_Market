@@ -288,7 +288,8 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
     private void ItmMnuPersonalInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItmMnuPersonalInventoryActionPerformed
         // TODO add your handling code here:
-        FrmPersonalInventory frmPersonalInventory = new FrmPersonalInventory();
+        String artisanUsername = name;
+        FrmPersonalInventory frmPersonalInventory = new FrmPersonalInventory(artisanUsername);
         frmPersonalInventory.setVisible(true);
         setVisible(false);
 
@@ -296,7 +297,8 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
-        FrmGeneralInventory frmGeneralInventory = new FrmGeneralInventory();
+        String artisanUsername = name;
+        FrmGeneralInventory frmGeneralInventory = new FrmGeneralInventory(artisanUsername);
         frmGeneralInventory.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jMenuItem8ActionPerformed

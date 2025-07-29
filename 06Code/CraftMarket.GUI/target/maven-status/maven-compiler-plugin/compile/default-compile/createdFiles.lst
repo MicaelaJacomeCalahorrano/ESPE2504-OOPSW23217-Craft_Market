@@ -1,10 +1,17 @@
+ec\espe\edu\utils\ProductDataAccessObject.class
+ec\espe\edu\controller\AttendanceHistoryController.class
 ec\espe\edu\view\FrmPrincipalMenu$13.class
+ec\espe\edu\controller\UserController.class
+ec\espe\edu\controller\UserController$LoginResult.class
 ec\espe\edu\view\FrmEditProduct$3.class
 ec\espe\edu\model\Inventory$1.class
 ec\espe\edu\model\controller\PenaltyController$PenaltyResult.class
 ec\espe\edu\view\FrmPrincipalMenu$12.class
+ec\espe\edu\controller\AttendanceController$RegisterAttendanceResult.class
 ec\espe\edu\model\Inventory$2.class
 ec\espe\edu\view\FrmDeleteProduct$2.class
+ec\espe\edu\controller\AttendanceController.class
 ec\espe\edu\view\FrmPrincipalMenu$11.class
+ec\espe\edu\utils\MongoConnection.class
 ec\espe\edu\view\FrmDeleteProduct$3.class
 ec\espe\edu\model\controller\PenaltyController.class

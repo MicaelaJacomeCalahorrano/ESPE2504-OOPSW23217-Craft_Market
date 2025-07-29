@@ -21,13 +21,17 @@ public class FrmPersonalInventory extends javax.swing.JFrame {
     Artisan artisan = new Artisan();
     String artisanName;
     private Inventory inventory;
+    private String loggedInUsername;
 
     /**
      * Creates new form PersonalInventory
      */
-    public FrmPersonalInventory() {
+    public FrmPersonalInventory(String username) {
+        this.loggedInUsername = username;
         initComponents();
         inventory = new Inventory();
+        
+        
     }
 
     /**
@@ -269,9 +273,10 @@ public class FrmPersonalInventory extends javax.swing.JFrame {
 
     private void btmGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmGoBackActionPerformed
         // TODO add your handling code here:
-        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
+        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(loggedInUsername);
         frmPrincipalMenu.setVisible(true);
-        setVisible(false);
+        frmPrincipalMenu.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btmGoBackActionPerformed
 
     private void btmPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmPrintActionPerformed
@@ -319,7 +324,7 @@ public class FrmPersonalInventory extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmPersonalInventory().setVisible(true);
+                new FrmPersonalInventory("usuario de prueba").setVisible(true);
             }
         });
     }

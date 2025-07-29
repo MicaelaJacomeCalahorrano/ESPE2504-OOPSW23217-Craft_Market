@@ -29,27 +29,33 @@ public class Inventory {
 
     public void loadProductsFromDatabase() {
         allProducts.clear();
-        FindIterable<Document> documents = productCollection.find();
+    FindIterable<Document> documents = productCollection.find();
 
-        for (Document doc : documents) {
-            int id = doc.getInteger("Id");
-            String name = doc.getString("Producto");
+    for (Document doc : documents) {
+        Integer idObj = doc.getInteger("Id");
+        String name = doc.getString("Producto");
+        Object priceObj = doc.get("Precio");
+        String owner = doc.getString("Artesano");
 
-            float unitPrice;
-            Object priceObj = doc.get("Precio");
-
-            switch (priceObj) {
-                case Double aDouble -> unitPrice = aDouble.floatValue();
-                case Integer integer -> unitPrice = integer.floatValue();
-                default -> unitPrice = 0.0f; 
-            }
-
-            int stock = doc.getInteger("stock", 0);
-            String owner = doc.getString("Artesano");
-
-            Product product = new Product(id, name, unitPrice, stock, owner);
-            allProducts.add(product);
+        if (idObj == null || name == null || name.isBlank() ||
+            priceObj == null || owner == null || owner.isBlank()) {
+            continue;
         }
+
+        int id = idObj;
+        float unitPrice;
+
+        if (priceObj instanceof Number number) {
+            unitPrice = number.floatValue();
+        } else {
+            unitPrice = 0.0f; // O puedes hacer continue también si prefieres
+        }
+
+        int stock = doc.getInteger("Stock", 0);
+
+        Product product = new Product(id, name, unitPrice, stock, owner);
+        allProducts.add(product);
+    }
     }
 
     public List<Product> getAllProducts() {
