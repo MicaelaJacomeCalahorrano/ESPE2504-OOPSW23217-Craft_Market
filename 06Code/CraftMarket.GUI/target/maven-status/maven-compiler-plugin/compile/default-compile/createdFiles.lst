@@ -3,6 +3,7 @@ ec\espe\edu\controller\AttendanceHistoryController.class
 ec\espe\edu\view\FrmPrincipalMenu$13.class
 ec\espe\edu\controller\UserController.class
 ec\espe\edu\controller\UserController$LoginResult.class
+ec\espe\edu\view\FrmPrincipalMenu$15.class
 ec\espe\edu\controller\AddProductController.class
 ec\espe\edu\view\FrmEditProduct$3.class
 ec\espe\edu\view\FrmPrincipalMenu$14.class

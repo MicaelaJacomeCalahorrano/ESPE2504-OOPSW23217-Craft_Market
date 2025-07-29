@@ -362,9 +362,15 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
     private void mniDeletProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniDeletProductActionPerformed
         // TODO add your handling code here:
-        FrmDeleteProduct frmDeleteProduct = new FrmDeleteProduct();
-        frmDeleteProduct.setVisible(true);
-        this.dispose();
+        FrmDeleteProduct deleteForm = new FrmDeleteProduct(this.name);
+        deleteForm.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                setVisible(true); // Mostrar el menú principal cuando se cierre
+            }
+        });
+        this.setVisible(false); // Ocultar el menú principal
+        deleteForm.setVisible(true);
     }//GEN-LAST:event_mniDeletProductActionPerformed
 
     /**

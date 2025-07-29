@@ -9,10 +9,15 @@ import javax.swing.JOptionPane;
  */
 public class FrmDeleteProduct extends javax.swing.JFrame {
 
+        private final String owner;
+
     /**
      * Creates new form FrmDeleteProduct
+     *
+     * @param owner
      */
-    public FrmDeleteProduct() {
+    public FrmDeleteProduct(String owner) {
+        this.owner = owner;
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Eliminar Producto por ID");
@@ -145,41 +150,69 @@ public class FrmDeleteProduct extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
-            if (txtId.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debe ingresar un ID", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        if (txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un ID", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            String productId = txtId.getText().trim(); // Elimina espacios en blanco
-
-            int confirm = JOptionPane.showConfirmDialog(
-                    this,
-                    "¿Está seguro de eliminar el producto de ID " + productId + "?",
-                    "Confirmar",
-                    JOptionPane.YES_NO_OPTION
-            );
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                Product.deleteProduct(productId);
-                JOptionPane.showMessageDialog(this, "Solicitud de eliminación procesada");
-                this.dispose(); // Cerrar la ventana si es necesario
-            }
+        int productId;
+        try {
+            productId = Integer.parseInt(txtId.getText().trim());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "El ID debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Error al procesar la eliminación: " + e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
+            return;
         }
+
+        Product product = Product.findById(productId);
+
+        // Validar que el producto exista
+        if (product == null) {
+            JOptionPane.showMessageDialog(this, "No existe un producto con ese ID", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Validar que el producto pertenezca al usuario
+        if (!product.getOwner().equals(this.owner)) {
+            JOptionPane.showMessageDialog(this, "No puedes eliminar productos de otros artesanos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Mostrar confirmación con detalles del producto
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                """
+                \u00bfEst\u00e1 seguro de eliminar este producto?
+                
+                ID: """ + product.getId() + "\n" +
+                "Nombre: " + product.getName() + "\n" +
+                "Precio: $" + product.getUnitPrice() + "\n" +
+                "Stock: " + product.getStock(),
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            boolean deleted = Product.deleteProduct(productId);
+            if (deleted) {
+                JOptionPane.showMessageDialog(this, "Producto eliminado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar el producto", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Error al eliminar el producto: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
-        frmPrincipalMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
@@ -214,7 +247,7 @@ public class FrmDeleteProduct extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmDeleteProduct().setVisible(true);
+                //new FrmDeleteProduct().setVisible(true);
             }
         });
     }

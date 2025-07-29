@@ -83,11 +83,11 @@ public class Product {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 products.add(new Product(
-                        doc.getInteger("Id"), 
+                        doc.getInteger("Id"),
                         doc.getString("Producto"),
                         doc.getDouble("Precio"),
                         doc.getInteger("Stock"),
-                        doc.getString("Artesano") 
+                        doc.getString("Artesano")
                 ));
             }
         } finally {
@@ -201,15 +201,14 @@ public class Product {
         collection.updateOne(filter, update);
     }
 
-    public static void deleteProduct(String productId) {
+    public static boolean deleteProduct(int productId) {
         try {
             MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
-
-            collection.deleteOne(new Document("_id", new ObjectId(productId))); // Si _id es ObjectId
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error: ID con formato inválido - " + productId);
+            DeleteResult result = collection.deleteOne(new Document("Id", productId));
+            return result.getDeletedCount() > 0;
         } catch (Exception e) {
             System.err.println("Error al eliminar el producto: " + e.getMessage());
+            return false;
         }
     }
 
