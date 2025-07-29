@@ -4,6 +4,7 @@
  */
 package ec.espe.edu.view;
 
+import ec.espe.edu.model.Product;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -313,16 +314,42 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
     private void mniEditProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEditProductActionPerformed
         // TODO add your handling code here:
-        String productIdStr = JOptionPane.showInputDialog(this, "Ingrese el ID del producto a editar:");
+        boolean exitLoop = false; // Controla si se debe salir del bucle
 
-        try {
-            int productId = Integer.parseInt(productIdStr);
-            FrmEditProduct frmEditProduct = new FrmEditProduct(productId, this.name);
-            frmEditProduct.setVisible(true);
-            frmEditProduct.setLocationRelativeTo(null);
-            this.dispose();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un ID válido", "Error", JOptionPane.ERROR_MESSAGE);
+        while (!exitLoop) {
+            String productIdStr = JOptionPane.showInputDialog(this, "Ingrese el ID del producto a editar:");
+
+            
+            if (productIdStr == null) {
+                exitLoop = true;
+                continue;
+            }
+
+            try {
+                int productId = Integer.parseInt(productIdStr);
+                Product product = Product.findById(productId);
+
+                
+                if (product == null) {
+                    JOptionPane.showMessageDialog(this, "El producto no existe", "Error", JOptionPane.ERROR_MESSAGE);
+                    continue; // Vuelve a pedir el ID
+                }
+
+                
+                if (!product.getOwner().equals(this.name)) {
+                    JOptionPane.showMessageDialog(this, "El producto no pertenece a este artesano", "Error", JOptionPane.ERROR_MESSAGE);
+                    continue; // Vuelve a pedir el ID
+                }
+
+                
+                FrmEditProduct frmEditProduct = new FrmEditProduct(productId, this.name);
+                frmEditProduct.setVisible(true);
+                this.dispose(); 
+                exitLoop = true; 
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "⚠️ Ingrese un ID válido (número entero)", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_mniEditProductActionPerformed
 

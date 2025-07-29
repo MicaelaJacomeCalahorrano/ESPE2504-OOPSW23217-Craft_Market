@@ -19,20 +19,19 @@ public class FrmEditProduct extends javax.swing.JFrame {
      * @param owner
      */
     public FrmEditProduct(int productId, String owner) {
-        initComponents(); // Inicializa los componentes del formulario
-        setLocationRelativeTo(null); // Centra la ventana
-
-        // Cargar el producto desde MongoDB
+        // Validación directa en el constructor (opcional, ya se validó en el menú)
         this.productToEdit = Product.findById(productId);
         if (productToEdit == null || !productToEdit.getOwner().equals(owner)) {
-            JOptionPane.showMessageDialog(this, "Producto no encontrado o no pertenece al artesano", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error: Producto no válido", "Error", JOptionPane.ERROR_MESSAGE);
             this.dispose();
             return;
         }
 
-        // Mostrar los datos del producto
+        initComponents();
+        setLocationRelativeTo(null);
+
         txtId.setText(String.valueOf(productToEdit.getId()));
-        txtId.setEditable(false); // ID no editable
+        txtId.setEditable(false);
         txtName.setText(productToEdit.getName());
         txtPrice.setText(String.valueOf(productToEdit.getUnitPrice()));
         txtStock.setText(String.valueOf(productToEdit.getStock()));
@@ -201,46 +200,41 @@ public class FrmEditProduct extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         try {
-            // Validar campos
-            if (txtName.getText().isEmpty() || txtPrice.getText().isEmpty() || txtStock.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Obtener nuevos valores
             String newName = txtName.getText();
             double newPrice = Double.parseDouble(txtPrice.getText());
             int newStock = Integer.parseInt(txtStock.getText());
 
-            // Validar valores positivos
+            
             if (newPrice <= 0 || newStock < 0) {
-                JOptionPane.showMessageDialog(this, "Precio y Stock deben ser valores positivos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Precio y Stock deben ser positivos", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Actualizar el producto
+            
             productToEdit.setName(newName);
             productToEdit.setUnitPrice(newPrice);
             productToEdit.setStock(newStock);
 
-            // Guardar en MongoDB
+            
             Product.updateProduct(productToEdit);
 
-            JOptionPane.showMessageDialog(this, "Producto actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            JOptionPane.showMessageDialog(this, "Producto actualizado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Precio y Stock deben ser números válidos", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
+        frmPrincipalMenu.setVisible(true);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
         frmPrincipalMenu.setVisible(true);
-        this.dispose();
+        this.setVisible(false);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**

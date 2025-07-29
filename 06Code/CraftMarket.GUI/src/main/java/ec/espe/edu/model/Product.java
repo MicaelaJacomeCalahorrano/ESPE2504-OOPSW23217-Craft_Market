@@ -82,16 +82,12 @@ public class Product {
         try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
-
-                Number unitPriceNumber = doc.get("unitPrice", Number.class);
-                float unitPrice = unitPriceNumber.floatValue();
-
                 products.add(new Product(
-                        doc.getInteger("id"),
-                        doc.getString("name"),
-                        unitPrice,
-                        doc.getInteger("stock"),
-                        doc.getString("owner")
+                        doc.getInteger("Id"), 
+                        doc.getString("Producto"),
+                        doc.getDouble("Precio"),
+                        doc.getInteger("Stock"),
+                        doc.getString("Artesano") 
                 ));
             }
         } finally {
@@ -195,38 +191,42 @@ public class Product {
 
     public static void updateProduct(Product product) {
         MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
-        Document filter = new Document("id", product.getId());
-        Document updateDoc = new Document("$set",
-                new Document("name", product.getName())
-                        .append("unitPrice", product.getUnitPrice())
-                        .append("stock", product.getStock()));
-        collection.updateOne(filter, updateDoc);
+        Document filter = new Document("Id", product.getId());
+        Document update = new Document("$set",
+                new Document("Producto", product.getName())
+                        .append("Precio", product.getUnitPrice())
+                        .append("Stock", product.getStock())
+                        .append("Artesano", product.getOwner())
+        );
+        collection.updateOne(filter, update);
     }
 
     public static void deleteProduct(String productId) {
         try {
-        MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
-        
-        
-        collection.deleteOne(new Document("_id", new ObjectId(productId))); // Si _id es ObjectId
-    } catch (IllegalArgumentException e) {
-        System.err.println("Error: ID con formato inválido - " + productId);
-    } catch (Exception e) {
-        System.err.println("Error al eliminar el producto: " + e.getMessage());
+            MongoCollection<Document> collection = MongoConnection.getDatabase().getCollection("Product");
+
+            collection.deleteOne(new Document("_id", new ObjectId(productId))); // Si _id es ObjectId
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error: ID con formato inválido - " + productId);
+        } catch (Exception e) {
+            System.err.println("Error al eliminar el producto: " + e.getMessage());
+        }
     }
-    }
-    
 
     public static Product findById(int productId) {
         Document doc = MongoConnection.getDatabase().getCollection("Product")
-                .find(new Document("id", productId)).first();
-        return (doc != null) ? new Product(
-            doc.getInteger("id"),
-            doc.getString("producto"),
-            doc.getDouble("precio"),
-            doc.getInteger("stock"),
-            doc.getString("artesano")
-        ) : null;
+                .find(new Document("Id", productId)).first(); // Buscar por "Id" (mayúscula)
+        if (doc == null) {
+            return null;
+        }
+
+        return new Product(
+                doc.getInteger("Id"),
+                doc.getString("Producto"),
+                doc.getDouble("Precio"),
+                doc.getInteger("Stock"),
+                doc.getString("Artesano")
+        );
     }
 
 }
