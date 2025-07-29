@@ -262,6 +262,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         FrmFilterByDate frmFilterByDate = new FrmFilterByDate();
         frmFilterByDate.setVisible(true);
         frmFilterByDate.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_itmFilterActionPerformed
 
     private void itmReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmReportActionPerformed
@@ -269,6 +270,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         FrmMonthlyReport frmMonthlyReport = new FrmMonthlyReport();
         frmMonthlyReport.setVisible(true);
         frmMonthlyReport.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_itmReportActionPerformed
 
     private void itmViewAttendanceHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmViewAttendanceHistoryActionPerformed
