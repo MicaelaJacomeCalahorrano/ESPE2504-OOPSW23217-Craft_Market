@@ -242,7 +242,8 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
     private void itmRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRegisterActionPerformed
         // TODO add your handling code here:
-        FrmRegisterSale frmRegisterSale = new FrmRegisterSale();
+        String artisanUsername = name;
+        FrmRegisterSale frmRegisterSale = new FrmRegisterSale(artisanUsername);
         frmRegisterSale.setVisible(true);
         frmRegisterSale.setLocationRelativeTo(null);
 
