@@ -244,14 +244,16 @@ public class FrmAddProduct extends javax.swing.JFrame {
             lastOwner = Artesano;
             this.dispose();
         }
-        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
+        String artisanUsername = loggedInUsername;
+        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(artisanUsername);
         frmPrincipalMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu();
+        String artisanUsername = loggedInUsername;
+        FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(artisanUsername);
         frmPrincipalMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
