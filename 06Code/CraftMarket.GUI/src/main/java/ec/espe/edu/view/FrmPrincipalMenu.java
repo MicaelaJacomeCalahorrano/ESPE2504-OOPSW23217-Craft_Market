@@ -261,7 +261,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     private void itmFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmFilterActionPerformed
         // TODO add your handling code here:
         String artisanUsername = name;
-        FrmFilterByDate frmFilterByDate = new FrmFilterByDate();
+        FrmFilterByDate frmFilterByDate = new FrmFilterByDate(artisanUsername);
         frmFilterByDate.setVisible(true);
         frmFilterByDate.setLocationRelativeTo(null);
         this.dispose();

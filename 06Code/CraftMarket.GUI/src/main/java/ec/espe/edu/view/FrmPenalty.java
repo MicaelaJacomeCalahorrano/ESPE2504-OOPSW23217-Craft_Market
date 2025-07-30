@@ -38,10 +38,6 @@ public class FrmPenalty extends javax.swing.JFrame {
         setupTableModel();
         calculateAndDisplayPenalty();
 
-        btnReturnPenalty.addActionListener(e -> {
-            this.dispose();
-            new FrmPrincipalMenu(loggedInUsername).setVisible(true);
-        });
     }
 
     private void setupTableModel() {
@@ -103,7 +99,7 @@ public class FrmPenalty extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel4.setText("jLabel4");
+        jLabel4.setText("Calculo Penalizacion");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,14 +108,14 @@ public class FrmPenalty extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(284, 284, 284))
+                .addGap(249, 249, 249))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

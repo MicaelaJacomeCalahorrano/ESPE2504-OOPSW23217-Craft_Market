@@ -12,11 +12,12 @@ import org.bson.Document;
  * @author Isaac Maisincho Crafters_Market DCCO ESPE
  */
 public class FrmFilterByDate extends javax.swing.JFrame {
+     private String loggedInUsername;
     /**
      * Creates new form FrmFilterByDate
      */
-    public FrmFilterByDate() {
-       
+    public FrmFilterByDate(String username) {
+        this.loggedInUsername = username;
         initComponents();
     }
 
@@ -231,7 +232,8 @@ public class FrmFilterByDate extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        FrmPrincipalMenu frmPrincipal = new FrmPrincipalMenu();
+         String artisanUsername = loggedInUsername;
+        FrmPrincipalMenu frmPrincipal = new FrmPrincipalMenu(artisanUsername);
         frmPrincipal.setVisible(true);
         frmPrincipal.setLocationRelativeTo(null);
         this.dispose();
@@ -267,7 +269,7 @@ public class FrmFilterByDate extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmFilterByDate().setVisible(true);
+                new FrmFilterByDate("artesano de prueba").setVisible(true);
             }
         });
     }
