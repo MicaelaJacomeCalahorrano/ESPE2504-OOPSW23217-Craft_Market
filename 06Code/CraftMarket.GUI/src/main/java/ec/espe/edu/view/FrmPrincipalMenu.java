@@ -260,6 +260,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
     private void itmFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmFilterActionPerformed
         // TODO add your handling code here:
+        String artisanUsername = name;
         FrmFilterByDate frmFilterByDate = new FrmFilterByDate();
         frmFilterByDate.setVisible(true);
         frmFilterByDate.setLocationRelativeTo(null);
@@ -268,7 +269,8 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
 
     private void itmReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmReportActionPerformed
         // TODO add your handling code here:
-        FrmMonthlyReport frmMonthlyReport = new FrmMonthlyReport();
+        String artisanUsername = name;
+        FrmMonthlyReport frmMonthlyReport = new FrmMonthlyReport(artisanUsername);
         frmMonthlyReport.setVisible(true);
         frmMonthlyReport.setLocationRelativeTo(null);
         this.dispose();

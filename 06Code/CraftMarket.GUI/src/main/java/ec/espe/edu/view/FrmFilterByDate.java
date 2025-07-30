@@ -12,11 +12,11 @@ import org.bson.Document;
  * @author Isaac Maisincho Crafters_Market DCCO ESPE
  */
 public class FrmFilterByDate extends javax.swing.JFrame {
-
     /**
      * Creates new form FrmFilterByDate
      */
     public FrmFilterByDate() {
+       
         initComponents();
     }
 

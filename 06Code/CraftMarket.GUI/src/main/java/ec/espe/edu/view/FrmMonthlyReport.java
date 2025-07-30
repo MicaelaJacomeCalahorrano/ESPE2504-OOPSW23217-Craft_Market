@@ -18,11 +18,12 @@ import org.bson.Document;
  * @author Isaac Maisincho Crafters_Market DCCO ESPE
  */
 public class FrmMonthlyReport extends javax.swing.JFrame {
-
+    private String loggedInUsername;
     /**
      * Creates new form FrmMonthlyReport
      */
-    public FrmMonthlyReport() {
+    public FrmMonthlyReport(String username) {
+        this.loggedInUsername = username;
         initComponents();
         TotalMensualSales.setEditable(false);
     }
@@ -292,7 +293,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-        FrmPrincipalMenu frmPrincipal = new FrmPrincipalMenu();
+        FrmPrincipalMenu frmPrincipal = new FrmPrincipalMenu(loggedInUsername);
         frmPrincipal.setVisible(true);
         frmPrincipal.setLocationRelativeTo(null);
         this.dispose();
@@ -328,7 +329,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmMonthlyReport().setVisible(true);
+                new FrmMonthlyReport("artesano de prueba").setVisible(true);
             }
         });
     }
