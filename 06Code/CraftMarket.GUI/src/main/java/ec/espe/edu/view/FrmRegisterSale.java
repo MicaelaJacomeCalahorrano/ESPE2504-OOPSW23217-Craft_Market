@@ -61,6 +61,7 @@ public class FrmRegisterSale extends javax.swing.JFrame {
         spnQuantity = new javax.swing.JSpinner();
         txtProductId = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
+        jScrollBar1 = new javax.swing.JScrollBar();
 
         btnSearch1.setText("Buscar");
         btnSearch1.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +88,8 @@ public class FrmRegisterSale extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setHorizontalScrollBar(jScrollBar1);
+
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -99,7 +102,7 @@ public class FrmRegisterSale extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,6 +110,7 @@ public class FrmRegisterSale extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tblProducts);
+        tblProducts.getAccessibleContext().setAccessibleParent(jScrollBar1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -198,6 +202,9 @@ public class FrmRegisterSale extends javax.swing.JFrame {
             }
         });
 
+        jScrollBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollBar1.setName(""); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,7 +238,7 @@ public class FrmRegisterSale extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProductId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,6 +250,8 @@ public class FrmRegisterSale extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jScrollBar1.getAccessibleContext().setAccessibleParent(tblProducts);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -381,6 +390,7 @@ public class FrmRegisterSale extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner spnQuantity;
     private javax.swing.JTable tblProducts;

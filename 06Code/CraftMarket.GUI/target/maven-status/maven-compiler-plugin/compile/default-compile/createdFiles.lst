@@ -9,6 +9,7 @@ ec\espe\edu\controller\AddProductController.class
 ec\espe\edu\view\FrmEditProduct$3.class
 ec\espe\edu\view\FrmPrincipalMenu$14.class
 ec\espe\edu\model\Inventory$1.class
+ec\espe\edu\view\FrmMonthlyReport$6.class
 ec\espe\edu\model\controller\PenaltyController$PenaltyResult.class
 ec\espe\edu\view\FrmPrincipalMenu$12.class
 ec\espe\edu\controller\AttendanceController$RegisterAttendanceResult.class
@@ -18,4 +19,5 @@ ec\espe\edu\controller\AttendanceController.class
 ec\espe\edu\view\FrmPrincipalMenu$11.class
 ec\espe\edu\utils\MongoConnection.class
 ec\espe\edu\view\FrmDeleteProduct$3.class
+ec\espe\edu\view\FrmFilterByDate$5.class
 ec\espe\edu\model\controller\PenaltyController.class
