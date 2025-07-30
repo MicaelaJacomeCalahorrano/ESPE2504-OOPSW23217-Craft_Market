@@ -6,6 +6,7 @@ package ec.espe.edu.view;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import ec.espe.edu.controller.MonthlyReportController;
 import ec.espe.edu.utils.MongoConnection;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -264,20 +265,21 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
                 return;
             }
 
-            float totalMensual = 0f;
+                for (Map.Entry<String, Float> entry : artisanSalesMap.entrySet()) {
+                    float valor = entry.getValue();
 
-            for (Map.Entry<String, Float> entry : artisanSalesMap.entrySet()) {
-                float valor = entry.getValue();
-                totalMensual += valor;
+                    Object[] row = {
+                        entry.getKey(),
+                        selectedMonthName.substring(0, 1).toUpperCase() + selectedMonthName.substring(1),
+                        year,
+                        String.format("%.2f", valor)
+                    };
+                    model.addRow(row);
+                }
 
-                Object[] row = {
-                    entry.getKey(),
-                    selectedMonthName.substring(0, 1).toUpperCase() + selectedMonthName.substring(1), // Capitalizar mes
-                    year,
-                    String.format("%.2f", valor) 
-                };
-                model.addRow(row);
-            }
+            float totalMensual = MonthlyReportController.calcularTotalMensual(artisanSalesMap);
+            TotalMensualSales.setText(String.format("%.2f", totalMensual));
+
 
             TotalMensualSales.setText(String.format("%.2f", totalMensual));
 
