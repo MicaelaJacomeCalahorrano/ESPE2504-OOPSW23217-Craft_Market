@@ -16,6 +16,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author jorge
  */
 public class UserControllerTest {
+    static String validUsername = "lourdes";
+    static String validPassword = "password";
+    static String wrongPassword = "wrongpass";
+    static String nonexistentUser = "ghost";
     
     public UserControllerTest() {
     }
@@ -36,49 +40,62 @@ public class UserControllerTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of login method, of class UserController.
-     */
-    @Test
-    public void testLogin() {
-        System.out.println("login");
-        String username = "";
-        String password = "";
-        boolean expResult = false;
-        boolean result = UserController.login(username, password);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @BeforeAll
+    public static void setup() {
     }
 
-    /**
-     * Test of getArtisanName method, of class UserController.
-     */
     @Test
-    public void testGetArtisanName() {
-        System.out.println("getArtisanName");
-        String username = "";
-        String password = "";
-        String expResult = "";
-        String result = UserController.getArtisanName(username, password);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testLogin_ValidCredentials() {
+        boolean result = UserController.login(validUsername, validPassword);
+        assertTrue(result, "Should log in with valid credentials");
     }
 
-    /**
-     * Test of processLogin method, of class UserController.
-     */
     @Test
-    public void testProcessLogin() {
-        System.out.println("processLogin");
-        String username = "";
-        String password = "";
-        UserController.LoginResult expResult = null;
-        UserController.LoginResult result = UserController.processLogin(username, password);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testLogin_InvalidPassword() {
+        boolean result = UserController.login(validUsername, wrongPassword);
+        assertFalse(result, "Should not log in with incorrect password");
     }
+
+    @Test
+    public void testLogin_NonexistentUser() {
+        boolean result = UserController.login(nonexistentUser, validPassword);
+        assertFalse(result, "Should not log in with nonexistent user");
+    }
+
+    @Test
+    public void testGetArtisanName_ValidUser() {
+        String name = UserController.getArtisanName(validUsername, validPassword);
+        assertNotEquals("Artesano desconocido", name, "Should return artisan name if credentials are valid");
+    }
+
+    @Test
+    public void testGetArtisanName_InvalidUser() {
+        String name = UserController.getArtisanName(nonexistentUser, wrongPassword);
+        assertEquals("Artesano desconocido", name, "Should return 'Artesano desconocido' if user does not exist");
+    }
+
+    @Test
+    public void testProcessLogin_EmptyFields() {
+        UserController.LoginResult result = UserController.processLogin("", "");
+        assertFalse(result.isSuccess());
+        assertEquals("Por favor, ingrese usuario y contraseña.", result.getMessage());
+    }
+
+    @Test
+    public void testProcessLogin_InvalidCredentials() {
+        UserController.LoginResult result = UserController.processLogin(nonexistentUser, wrongPassword);
+        assertFalse(result.isSuccess());
+        assertEquals("Usuario o contraseña incorrectos.", result.getMessage());
+    }
+
+    @Test
+    public void testProcessLogin_ValidCredentials() {
+        UserController.LoginResult result = UserController.processLogin(validUsername, validPassword);
+        assertTrue(result.isSuccess(), "Should succeed with valid credentials");
+        assertTrue(result.getMessage().contains("Bienvenido"), "Message should contain 'Bienvenido'");
+        assertNotNull(result.getArtisanName(), "Artisan name should not be null");
+    }
+
     
 }
+
