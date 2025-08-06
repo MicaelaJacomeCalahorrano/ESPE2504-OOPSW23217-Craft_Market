@@ -2,6 +2,10 @@ package ec.espe.edu.controller;
 
 import ec.espe.edu.model.Product;
 
+/**
+ *
+ * @author Michael Chicaiza SOFTCRAF DCCO ESPE
+ */
 public class StockManager {
     /**
      * Actualiza el stock de un producto restando la cantidad vendida.
