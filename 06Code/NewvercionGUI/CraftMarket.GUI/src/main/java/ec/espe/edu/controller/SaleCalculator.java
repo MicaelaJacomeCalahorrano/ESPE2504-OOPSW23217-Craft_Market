@@ -1,5 +1,9 @@
 package ec.espe.edu.controller;
 
+/**
+ *
+ * @author Michael Chicaiza SOFTCRAF DCCO ESPE
+ */
 public class SaleCalculator {
     /**
      * Calcula el total de una venta dado el precio unitario y la cantidad.
