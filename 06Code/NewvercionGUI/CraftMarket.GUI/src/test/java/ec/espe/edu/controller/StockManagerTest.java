@@ -40,15 +40,34 @@ public class StockManagerTest {
      * Test of updateStockAfterSale method, of class StockManager.
      */
     @Test
-    public void testUpdateStockAfterSale() {
-        System.out.println("updateStockAfterSale");
-        int productId = 0;
-        int quantityVendida = 0;
+    public void testUpdateStock_ProductNotFound() {
+        int productId = -1; // ID inválido o inexistente
+        int quantityVendida = 5;
         boolean expResult = false;
+
         boolean result = StockManager.updateStockAfterSale(productId, quantityVendida);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, "Product not found should return false");
+    }
+
+    @Test
+    public void testUpdateStock_StockInsuficiente() {
+        int productId = 1; // Asegúrate que el producto 1 existe y tiene stock < 1000
+        int quantityVendida = 1000;
+        boolean expResult = false;
+
+        boolean result = StockManager.updateStockAfterSale(productId, quantityVendida);
+        assertEquals(expResult, result, "Insufficient stock should return false");
+    }
+
+    @Test
+    public void testUpdateStock_SuccessfulUpdate() {
+        int productId = 1; // Asegúrate que existe en MongoDB y tiene stock suficiente
+        int quantityVendida = 1;
+        boolean expResult = true;
+
+        boolean result = StockManager.updateStockAfterSale(productId, quantityVendida);
+        assertEquals(expResult, result, "Successful update should return true");
     }
     
 }
+
