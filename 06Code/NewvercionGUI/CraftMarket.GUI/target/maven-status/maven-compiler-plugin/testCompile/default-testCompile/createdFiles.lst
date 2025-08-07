@@ -1,0 +1,10 @@
+ec\espe\edu\controller\StockManagerTest.class
+ec\espe\edu\controller\PenaltyControllerTest.class
+ec\espe\edu\controller\UserControllerTest.class
+ec\espe\edu\controller\ProductManagerTest.class
+ec\espe\edu\controller\AttendanceControllerTest.class
+ec\espe\edu\controller\AttendanceHistoryControllerTest.class
+ec\espe\edu\controller\ProductValidatorTest.class
+ec\espe\edu\controller\AddProductControllerTest.class
+ec\espe\edu\controller\MonthlyReportControllerTest.class
+ec\espe\edu\controller\SaleCalculatorTest.class
