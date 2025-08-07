@@ -11,6 +11,6 @@ package ec.espe.edu.view;
 public class CraftMarket {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        FrmSplashWindow.main(args);
     }
 }

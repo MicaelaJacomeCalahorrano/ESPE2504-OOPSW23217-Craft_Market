@@ -1,35 +1,36 @@
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\AddProductController.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\AttendanceController.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\AttendanceHistoryController.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\MonthlyReportController.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\PenaltyController.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\ProductManager.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\ProductValidator.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\SaleCalculator.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\StockManager.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\UserController.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\Artisan.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\Attendance.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\Inventory.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\MonthlyReport.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\Product.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\SalesReport.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\SearchReport.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\User.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\utils\MongoConnection.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\utils\ProductDataAccessObject.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\CraftMarket.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmAddProduct.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmCheckAttendanceHistory.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmDeleteProduct.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmEditProduct.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmFilterByDate.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmGeneralInventory.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmMarkAttendence.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmMenu.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmMonthlyReport.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmPenalty.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmPersonalInventory.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmPrincipalMenu.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmRegisterSale.java
-C:\Users\chica\OneDrive\Desktop\Nueva carpeta\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmUser.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\AddProductController.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\AttendanceController.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\AttendanceHistoryController.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\MonthlyReportController.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\PenaltyController.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\ProductManager.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\ProductValidator.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\SaleCalculator.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\StockManager.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\controller\UserController.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\Artisan.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\Attendance.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\Inventory.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\MonthlyReport.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\Product.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\SalesReport.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\SearchReport.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\model\User.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\utils\MongoConnection.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\utils\ProductDataAccessObject.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\CraftMarket.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmAddProduct.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmCheckAttendanceHistory.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmDeleteProduct.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmEditProduct.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmFilterByDate.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmGeneralInventory.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmMarkAttendence.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmMenu.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmMonthlyReport.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmPenalty.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmPersonalInventory.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmPrincipalMenu.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmRegisterSale.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmSplashWindow.java
+C:\Users\jorge\OneDrive\Escritorio\ESPE\SEGUNDO_SEMESTRE\OOP\ESPE2504-OOPSW23217-Craft_Market\06Code\NewvercionGUI\CraftMarket.GUI\src\main\java\ec\espe\edu\view\FrmUser.java
