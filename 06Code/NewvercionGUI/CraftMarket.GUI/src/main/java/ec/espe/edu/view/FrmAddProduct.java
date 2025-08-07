@@ -247,6 +247,7 @@ public class FrmAddProduct extends javax.swing.JFrame {
         String artisanUsername = loggedInUsername;
         FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(artisanUsername);
         frmPrincipalMenu.setVisible(true);
+        frmPrincipalMenu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -255,6 +256,7 @@ public class FrmAddProduct extends javax.swing.JFrame {
         String artisanUsername = loggedInUsername;
         FrmPrincipalMenu frmPrincipalMenu = new FrmPrincipalMenu(artisanUsername);
         frmPrincipalMenu.setVisible(true);
+        frmPrincipalMenu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 

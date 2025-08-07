@@ -165,7 +165,7 @@ public class ProductValidatorTest {
         System.out.println("testIsValidStockZero");
         
         int stock = 0;
-        boolean expResult = true; // Note: Zero stock is valid according to ProductValidator
+        boolean expResult = true;
         boolean result = ProductValidator.isValidStock(stock);
         
         assertEquals(expResult, result, "Zero stock should return true");

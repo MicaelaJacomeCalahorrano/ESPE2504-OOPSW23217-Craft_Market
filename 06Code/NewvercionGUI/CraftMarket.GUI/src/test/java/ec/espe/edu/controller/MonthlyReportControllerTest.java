@@ -38,10 +38,6 @@ public class MonthlyReportControllerTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of calcularTotalMensual method with valid values.
-     * Validates that the method correctly sums all artisan sales.
-     */
     @Test
     public void testCalcularTotalMensual() {
         System.out.println("testCalcularTotalMensual");
@@ -56,10 +52,6 @@ public class MonthlyReportControllerTest {
         
         assertEquals(expectedResult, result, 0.01f, "Should correctly sum all artisan sales");
     }
-    /**
-     * Test of calcularTotalMensual method with null values.
-     * Validates that the method correctly handles null values by ignoring them.
-     */
     @Test
     public void testCalcularTotalMensual_WithNullValues() {
         System.out.println("testCalcularTotalMensual_WithNullValues");
@@ -70,16 +62,12 @@ public class MonthlyReportControllerTest {
         artisanSalesMap.put("Luis", null);
         artisanSalesMap.put("Carlos", 100.0f);
         
-        float expectedResult = 250.0f; // Only Ana + Carlos (150 + 100)
+        float expectedResult = 250.0f;
         float result = MonthlyReportController.calcularTotalMensual(artisanSalesMap);
         
         assertEquals(expectedResult, result, 0.01f, "Should ignore null values and sum only valid ones");
     }
     
-    /**
-     * Test of calcularTotalMensual method with empty map.
-     * Validates that the method returns 0 for empty map.
-     */
     @Test
     public void testCalcularTotalMensual_EmptyMap() {
         System.out.println("testCalcularTotalMensual_EmptyMap");
@@ -92,10 +80,6 @@ public class MonthlyReportControllerTest {
         assertEquals(expectedResult, result, 0.01f, "Empty map should return 0");
     }
     
-    /**
-     * Test of calcularTotalMensual method with all null values.
-     * Validates that the method returns 0 when all values are null.
-     */
     @Test
     public void testCalcularTotalMensual_AllNullValues() {
         System.out.println("testCalcularTotalMensual_AllNullValues");
@@ -111,10 +95,6 @@ public class MonthlyReportControllerTest {
         assertEquals(expectedResult, result, 0.01f, "All null values should return 0");
     }
     
-    /**
-     * Test of calcularTotalMensual method with zero values.
-     * Validates that the method correctly handles zero values.
-     */
     @Test
     public void testCalcularTotalMensual_WithZeroValues() {
         System.out.println("testCalcularTotalMensual_WithZeroValues");
@@ -125,16 +105,12 @@ public class MonthlyReportControllerTest {
             "Carlos", 100.0f
         );
         
-        float expectedResult = 250.0f; // 150 + 0 + 100
+        float expectedResult = 250.0f;
         float result = MonthlyReportController.calcularTotalMensual(artisanSalesMap);
         
         assertEquals(expectedResult, result, 0.01f, "Should include zero values in calculation");
     }
     
-    /**
-     * Test of calcularTotalMensual method with negative values.
-     * Validates that the method correctly handles negative values.
-     */
     @Test
     public void testCalcularTotalMensual_WithNegativeValues() {
         System.out.println("testCalcularTotalMensual_WithNegativeValues");
@@ -145,7 +121,7 @@ public class MonthlyReportControllerTest {
             "Carlos", 100.0f
         );
         
-        float expectedResult = 200.0f; // 150 + (-50) + 100
+        float expectedResult = 200.0f;
         float result = MonthlyReportController.calcularTotalMensual(artisanSalesMap);
         
         assertEquals(expectedResult, result, 0.01f, "Should include negative values in calculation");

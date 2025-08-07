@@ -44,10 +44,6 @@ public class UserControllerTest {
     public static void setup() {
     }
 
-    /**
-     * Test of login method with valid credentials.
-     * Validates that valid credentials return true.
-     */
     @Test
     public void testLogin_ValidCredentials() {
         System.out.println("testLogin_ValidCredentials");
@@ -56,16 +52,11 @@ public class UserControllerTest {
             boolean result = UserController.login(validUsername, validPassword);
             assertTrue(result, "Should log in with valid credentials");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
     }
 
-    /**
-     * Test of login method with invalid password.
-     * Validates that wrong password returns false.
-     */
     @Test
     public void testLogin_InvalidPassword() {
         System.out.println("testLogin_InvalidPassword");
@@ -74,16 +65,11 @@ public class UserControllerTest {
             boolean result = UserController.login(validUsername, wrongPassword);
             assertFalse(result, "Should not log in with incorrect password");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
     }
 
-    /**
-     * Test of login method with nonexistent user.
-     * Validates that nonexistent user returns false.
-     */
     @Test
     public void testLogin_NonexistentUser() {
         System.out.println("testLogin_NonexistentUser");
@@ -92,16 +78,11 @@ public class UserControllerTest {
             boolean result = UserController.login(nonexistentUser, validPassword);
             assertFalse(result, "Should not log in with nonexistent user");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
     }
 
-    /**
-     * Test of getArtisanName method with valid user.
-     * Validates that valid user returns proper artisan name.
-     */
     @Test
     public void testGetArtisanName_ValidUser() {
         System.out.println("testGetArtisanName_ValidUser");
@@ -109,19 +90,13 @@ public class UserControllerTest {
         try {
             String name = UserController.getArtisanName(validUsername, validPassword);
             assertNotNull(name, "Artisan name should not be null");
-            // Name could be valid artisan name or "Artesano desconocido" depending on database state
             assertTrue(name.length() > 0, "Artisan name should not be empty");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
     }
 
-    /**
-     * Test of getArtisanName method with invalid user.
-     * Validates that invalid user returns default message.
-     */
     @Test
     public void testGetArtisanName_InvalidUser() {
         System.out.println("testGetArtisanName_InvalidUser");
@@ -130,16 +105,11 @@ public class UserControllerTest {
             String name = UserController.getArtisanName(nonexistentUser, wrongPassword);
             assertEquals("Artesano desconocido", name, "Should return 'Artesano desconocido' if user does not exist");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
     }
 
-    /**
-     * Test of processLogin method with empty fields.
-     * Validates that empty fields return proper error message.
-     */
     @Test
     public void testProcessLogin_EmptyFields() {
         System.out.println("testProcessLogin_EmptyFields");
@@ -150,16 +120,11 @@ public class UserControllerTest {
             assertFalse(result.isSuccess(), "Should not succeed with empty fields");
             assertEquals("Por favor, ingrese usuario y contraseña.", result.getMessage());
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
     }
 
-    /**
-     * Test of processLogin method with invalid credentials.
-     * Validates that invalid credentials return proper error message.
-     */
     @Test
     public void testProcessLogin_InvalidCredentials() {
         System.out.println("testProcessLogin_InvalidCredentials");
@@ -170,16 +135,11 @@ public class UserControllerTest {
             assertFalse(result.isSuccess(), "Should not succeed with invalid credentials");
             assertEquals("Usuario o contraseña incorrectos.", result.getMessage());
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
     }
 
-    /**
-     * Test of processLogin method with valid credentials.
-     * Validates that valid credentials return success.
-     */
     @Test
     public void testProcessLogin_ValidCredentials() {
         System.out.println("testProcessLogin_ValidCredentials");
@@ -187,11 +147,9 @@ public class UserControllerTest {
         try {
             UserController.LoginResult result = UserController.processLogin(validUsername, validPassword);
             assertNotNull(result, "LoginResult should not be null");
-            // Result depends on database state - could be success or failure
             assertNotNull(result.getMessage(), "Message should not be null");
             assertTrue(result.getMessage().length() > 0, "Message should not be empty");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }

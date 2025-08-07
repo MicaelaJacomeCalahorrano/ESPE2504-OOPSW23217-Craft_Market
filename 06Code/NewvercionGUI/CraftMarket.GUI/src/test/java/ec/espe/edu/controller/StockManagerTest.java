@@ -45,14 +45,13 @@ public class StockManagerTest {
         System.out.println("testUpdateStock_ProductNotFound");
         
         try {
-            int productId = 999999; // Very unlikely to exist
+            int productId = 999999;
             int quantityVendida = 5;
             boolean expResult = false;
 
             boolean result = StockManager.updateStockAfterSale(productId, quantityVendida);
             assertEquals(expResult, result, "Product not found should return false");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
@@ -67,16 +66,14 @@ public class StockManagerTest {
         System.out.println("testUpdateStock_InsufficientStock");
         
         try {
-            int productId = 1; // Assume product exists
-            int quantityVendida = 99999; // Very large quantity
+            int productId = 1;
+            int quantityVendida = 99999;
             
             boolean result = StockManager.updateStockAfterSale(productId, quantityVendida);
             
-            // Result should be boolean (could be true or false depending on actual stock)
             assertNotNull(result, "Result should not be null");
             assertTrue(result == true || result == false, "Result should be a valid boolean");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
@@ -91,16 +88,14 @@ public class StockManagerTest {
         System.out.println("testUpdateStock_ValidUpdate");
         
         try {
-            int productId = 1; // Assume product exists
-            int quantityVendida = 1; // Small quantity
+            int productId = 1;
+            int quantityVendida = 1;
             
             boolean result = StockManager.updateStockAfterSale(productId, quantityVendida);
             
-            // Result should be boolean
             assertNotNull(result, "Result should not be null");
             assertTrue(result == true || result == false, "Result should be a valid boolean");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
@@ -115,16 +110,14 @@ public class StockManagerTest {
         System.out.println("testUpdateStock_ZeroQuantity");
         
         try {
-            int productId = 1; // Assume product exists
-            int quantityVendida = 0; // Zero quantity
+            int productId = 1;
+            int quantityVendida = 0;
             
             boolean result = StockManager.updateStockAfterSale(productId, quantityVendida);
             
-            // Result should be boolean
             assertNotNull(result, "Result should not be null");
             assertTrue(result == true || result == false, "Result should be a valid boolean");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }
@@ -139,16 +132,14 @@ public class StockManagerTest {
         System.out.println("testUpdateStock_NegativeQuantity");
         
         try {
-            int productId = 1; // Assume product exists
-            int quantityVendida = -5; // Negative quantity
+            int productId = 1;
+            int quantityVendida = -5;
             
             boolean result = StockManager.updateStockAfterSale(productId, quantityVendida);
             
-            // Result should be boolean (negative quantity might increase stock)
             assertNotNull(result, "Result should not be null");
             assertTrue(result == true || result == false, "Result should be a valid boolean");
         } catch (Exception e) {
-            // If MongoDB connection error occurs, it's expected in testing environment
             System.out.println("MongoDB not available during testing - expected behavior");
             assertTrue(true, "Test passes when MongoDB is not available");
         }

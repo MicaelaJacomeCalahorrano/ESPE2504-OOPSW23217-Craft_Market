@@ -25,12 +25,14 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         this.name = "";
         initComponents();
         cargarImagenes();
+        setLocationRelativeTo(null); // Centrar la ventana
     }
 
     public FrmPrincipalMenu(String name) {
         this.name = name;
         initComponents();
         cargarImagenes();
+        setLocationRelativeTo(null); // Centrar la ventana
     }
 
     private void cargarImagenEnLabel(JLabel label, String ruta, int ancho, int alto) {
@@ -237,7 +239,8 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        // Exit the application
+        System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void itmRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmRegisterActionPerformed
@@ -297,6 +300,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         String artisanUsername = name;
         FrmPersonalInventory frmPersonalInventory = new FrmPersonalInventory(artisanUsername);
         frmPersonalInventory.setVisible(true);
+        frmPersonalInventory.setLocationRelativeTo(null);
         setVisible(false);
 
     }//GEN-LAST:event_ItmMnuPersonalInventoryActionPerformed
@@ -306,6 +310,7 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         String artisanUsername = name;
         FrmGeneralInventory frmGeneralInventory = new FrmGeneralInventory(artisanUsername);
         frmGeneralInventory.setVisible(true);
+        frmGeneralInventory.setLocationRelativeTo(null);
         setVisible(false);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
@@ -352,9 +357,11 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
                     @Override
                     public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                         FrmPrincipalMenu.this.setVisible(true); // Mostrar el menú principal al cerrar la edición
+                        FrmPrincipalMenu.this.setLocationRelativeTo(null); // Centrar la ventana
                     }
                 });
                 editForm.setVisible(true);
+                editForm.setLocationRelativeTo(null); // Centrar la ventana de edición
                 exitLoop = true;
 
             } catch (NumberFormatException e) {
@@ -370,10 +377,12 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
             @Override
             public void windowClosed(java.awt.event.WindowEvent e) {
                 setVisible(true); // Mostrar el menú principal cuando se cierre
+                setLocationRelativeTo(null); // Centrar la ventana
             }
         });
         this.setVisible(false); // Ocultar el menú principal
         deleteForm.setVisible(true);
+        deleteForm.setLocationRelativeTo(null); // Centrar la ventana de eliminación
     }//GEN-LAST:event_mniDeletProductActionPerformed
 
     /**
@@ -406,7 +415,8 @@ public class FrmPrincipalMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmPrincipalMenu("hla").setVisible(true);
+                FrmPrincipalMenu menu = new FrmPrincipalMenu("hla");
+                menu.setVisible(true);
             }
         });
     }

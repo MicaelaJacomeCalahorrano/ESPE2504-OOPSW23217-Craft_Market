@@ -37,34 +37,24 @@ public class AddProductControllerTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of addProduct method with valid parameters.
-     * Uses unique timestamp-based ID to avoid conflicts with existing database.
-     */
     @Test
     public void testAddProductValidParams() {
         System.out.println("testAddProductValidParams");
         
-        // Generate unique ID to avoid conflicts with existing products in database
         long timestamp = System.currentTimeMillis();
-        String idText = String.valueOf(timestamp % 100000); // Unique 5-digit ID
-        String name = "Chocolate";        // Keep original name
-        String priceText = "25.00";       // Keep original price  
-        String stockText = "10";          // Keep original stock
-        String owner = "lourdes";         // Keep original owner
+        String idText = String.valueOf(timestamp % 100000);
+        String name = "Chocolate";
+        String priceText = "25.00";
+        String stockText = "10";
+        String owner = "lourdes";
         Component parent = null;
         
         boolean expResult = true;
         boolean result = AddProductController.addProduct(idText, name, priceText, stockText, owner, parent);
         
-        // Note: This test may fail if there's no MongoDB connection
         assertEquals(expResult, result, "Product with valid parameters should be added correctly");
     }
     
-    /**
-     * Test of addProduct method with empty fields.
-     * This test validates that empty fields return false.
-     */
     @Test
     public void testAddProductEmptyFields() {
         System.out.println("testAddProductEmptyFields");
@@ -82,18 +72,14 @@ public class AddProductControllerTest {
         assertEquals(expResult, result, "Empty fields should return false");
     }
     
-    /**
-     * Test of addProduct method with invalid numeric formats.
-     * This test validates that invalid numeric formats return false.
-     */
     @Test
     public void testAddProductInvalidNumericFormat() {
         System.out.println("testAddProductInvalidNumericFormat");
         
-        String idText = "abc"; // Non-numeric ID
+        String idText = "abc";
         String name = "Test Product";
-        String priceText = "xyz"; // Non-numeric price
-        String stockText = "def"; // Non-numeric stock
+        String priceText = "xyz";
+        String stockText = "def";
         String owner = "TestOwner";
         Component parent = null;
         
@@ -103,18 +89,14 @@ public class AddProductControllerTest {
         assertEquals(expResult, result, "Invalid numeric formats should return false");
     }
     
-    /**
-     * Test of addProduct method with negative values.
-     * This test validates that negative values return false.
-     */
     @Test
     public void testAddProductNegativeValues() {
         System.out.println("testAddProductNegativeValues");
         
         String idText = "123";
         String name = "Test Product";
-        String priceText = "-10.50"; // Negative price
-        String stockText = "-5"; // Negative stock
+        String priceText = "-10.50";
+        String stockText = "-5";
         String owner = "TestOwner";
         Component parent = null;
         
@@ -124,18 +106,14 @@ public class AddProductControllerTest {
         assertEquals(expResult, result, "Negative values for price and stock should return false");
     }
     
-    /**
-     * Test of addProduct method with zero values.
-     * This test validates that zero values return false.
-     */
     @Test
     public void testAddProductZeroValues() {
         System.out.println("testAddProductZeroValues");
         
         String idText = "456";
         String name = "Test Product";
-        String priceText = "0"; // Zero price
-        String stockText = "0"; // Zero stock
+        String priceText = "0";
+        String stockText = "0";
         String owner = "TestOwner";
         Component parent = null;
         
