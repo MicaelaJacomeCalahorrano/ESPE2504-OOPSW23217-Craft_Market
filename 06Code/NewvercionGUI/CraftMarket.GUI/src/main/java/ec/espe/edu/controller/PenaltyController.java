@@ -1,4 +1,4 @@
-package ec.espe.edu.model.controller;
+package ec.espe.edu.controller;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

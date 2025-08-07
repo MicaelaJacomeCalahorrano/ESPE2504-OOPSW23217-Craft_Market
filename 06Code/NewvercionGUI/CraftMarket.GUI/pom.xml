@@ -34,6 +34,13 @@
                <version>7.2.5</version>
                <type>pom</type>
           </dependency>
+          <dependency>
+               <groupId>org.junit.jupiter</groupId>
+               <artifactId>junit-jupiter-api</artifactId>
+               <version>5.10.2</version>
+               <scope>test</scope>
+               <type>jar</type>
+          </dependency>
      </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

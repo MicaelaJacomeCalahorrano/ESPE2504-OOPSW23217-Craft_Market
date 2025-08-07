@@ -4,7 +4,7 @@
  */
 package ec.espe.edu.view;
 
-import ec.espe.edu.model.controller.PenaltyController;
+import ec.espe.edu.controller.PenaltyController;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;

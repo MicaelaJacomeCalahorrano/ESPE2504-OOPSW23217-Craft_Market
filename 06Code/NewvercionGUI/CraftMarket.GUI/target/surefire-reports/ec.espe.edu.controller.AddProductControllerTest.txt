@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ec.espe.edu.controller.AddProductControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 23.71 s -- in ec.espe.edu.controller.AddProductControllerTest
