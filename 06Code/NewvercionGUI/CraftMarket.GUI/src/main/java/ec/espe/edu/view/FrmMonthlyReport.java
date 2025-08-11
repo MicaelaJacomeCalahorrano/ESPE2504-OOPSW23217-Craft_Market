@@ -22,6 +22,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
     private String loggedInUsername;
     /**
      * Creates new form FrmMonthlyReport
+     * @param username
      */
     public FrmMonthlyReport(String username) {
         this.loggedInUsername = username;
@@ -46,7 +47,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
                 return i + 1;
             }
         }
-        return -1; // en caso de error
+        return -1; 
     }
 
     @SuppressWarnings("unchecked")

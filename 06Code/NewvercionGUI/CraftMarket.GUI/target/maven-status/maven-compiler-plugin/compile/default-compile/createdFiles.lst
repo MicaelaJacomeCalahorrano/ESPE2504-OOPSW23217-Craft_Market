@@ -53,6 +53,7 @@ ec\espe\edu\view\FrmPersonalInventory$3.class
 ec\espe\edu\view\FrmEditProduct$3.class
 ec\espe\edu\view\FrmRegisterSale$5.class
 ec\espe\edu\view\FrmDeleteProduct$1.class
+ec\espe\edu\controller\TableController.class
 ec\espe\edu\view\FrmPrincipalMenu.class
 ec\espe\edu\view\FrmPrincipalMenu$14.class
 ec\espe\edu\model\Inventory$1.class
@@ -88,6 +89,7 @@ ec\espe\edu\view\FrmMarkAttendence.class
 ec\espe\edu\controller\ProductManager.class
 ec\espe\edu\view\FrmFilterByDate$4.class
 ec\espe\edu\view\FrmMarkAttendence$3.class
+ec\espe\edu\controller\SaleController.class
 ec\espe\edu\controller\StockManager.class
 ec\espe\edu\view\FrmPrincipalMenu$11.class
 ec\espe\edu\model\SearchReport.class
