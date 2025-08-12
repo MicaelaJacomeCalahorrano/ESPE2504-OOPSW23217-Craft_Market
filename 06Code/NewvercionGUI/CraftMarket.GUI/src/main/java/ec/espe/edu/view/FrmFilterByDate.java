@@ -2,9 +2,14 @@ package ec.espe.edu.view;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import ec.espe.edu.controller.PrintController;
 import ec.espe.edu.utils.MongoConnection;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 
@@ -18,6 +23,7 @@ public class FrmFilterByDate extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmFilterByDate
+     *
      * @param username
      */
     public FrmFilterByDate(String username) {
@@ -46,6 +52,7 @@ public class FrmFilterByDate extends javax.swing.JFrame {
         dateChooser = new com.toedter.calendar.JDateChooser();
         txtTotal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -134,6 +141,13 @@ public class FrmFilterByDate extends javax.swing.JFrame {
 
         jLabel3.setText("Total");
 
+        jButton1.setText("Imprimir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -157,7 +171,9 @@ public class FrmFilterByDate extends javax.swing.JFrame {
                 .addComponent(btnBack)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(67, 67, 67)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,7 +192,8 @@ public class FrmFilterByDate extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jButton1))
                 .addGap(14, 14, 14)
                 .addComponent(btnBack)
                 .addContainerGap(68, Short.MAX_VALUE))
@@ -213,7 +230,7 @@ public class FrmFilterByDate extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) tblSales.getModel();
             model.setRowCount(0);
 
-            double totalSum = 0.0; 
+            double totalSum = 0.0;
 
             try {
                 while (cursor.hasNext()) {
@@ -232,7 +249,7 @@ public class FrmFilterByDate extends javax.swing.JFrame {
                         artisanName
                     };
 
-                    totalSum += total; 
+                    totalSum += total;
                     model.addRow(row);
                 }
             } finally {
@@ -262,6 +279,14 @@ public class FrmFilterByDate extends javax.swing.JFrame {
     private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PrintController.imprimirTabla(
+                tblSales,
+                "Reporte diario de ventas",
+                txtTotal.getText()
+        );
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,6 +327,7 @@ public class FrmFilterByDate extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSearch;
     private com.toedter.calendar.JDateChooser dateChooser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

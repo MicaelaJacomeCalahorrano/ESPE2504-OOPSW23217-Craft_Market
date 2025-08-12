@@ -1,16 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ec.espe.edu.view;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import ec.espe.edu.controller.MonthlyReportController;
+import ec.espe.edu.controller.PrintController;
 import ec.espe.edu.utils.MongoConnection;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 
@@ -19,9 +20,12 @@ import org.bson.Document;
  * @author Isaac Maisincho Crafters_Market DCCO ESPE
  */
 public class FrmMonthlyReport extends javax.swing.JFrame {
+
     private String loggedInUsername;
+
     /**
      * Creates new form FrmMonthlyReport
+     *
      * @param username
      */
     public FrmMonthlyReport(String username) {
@@ -47,7 +51,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
                 return i + 1;
             }
         }
-        return -1; 
+        return -1;
     }
 
     @SuppressWarnings("unchecked")
@@ -70,6 +74,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
         TotalMensualSales = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         spnYear = new com.toedter.calendar.JYearChooser();
+        btnPrint = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -106,7 +111,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
 
         jLabel2.setText("Seleccione un Mes");
 
-        cmbMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto ", "Septiembre", "Noviembre", "Diciembre" }));
+        cmbMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
         cmbMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbMonthActionPerformed(evt);
@@ -159,6 +164,13 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
 
         jLabel4.setText("Total de ventas:");
 
+        btnPrint.setText("Imprimir");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -180,7 +192,9 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
                     .addComponent(btnBack))
                 .addContainerGap(88, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(89, 89, 89)
+                .addComponent(btnPrint)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TotalMensualSales, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,7 +216,8 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TotalMensualSales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(btnPrint))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addGap(18, 18, 18))
@@ -250,7 +265,6 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
                 String saleDateStr = doc.getString("saleDate");
                 Number totalNumber = doc.get("total", Number.class);
 
-                
                 if (artisanName == null || saleDateStr == null || totalNumber == null) {
                     continue;
                 }
@@ -270,28 +284,24 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
 
             if (artisanSalesMap.isEmpty()) {
                 TotalMensualSales.setText("");
-                javax.swing.JOptionPane.showMessageDialog(this, "No se encontraron ventas para ese mes y año.");
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontraron ventas para ese mes.");
                 return;
             }
 
-                for (Map.Entry<String, Float> entry : artisanSalesMap.entrySet()) {
-                    float valor = entry.getValue();
+            for (Map.Entry<String, Float> entry : artisanSalesMap.entrySet()) {
+                float valor = entry.getValue();
 
-                    Object[] row = {
-                        entry.getKey(),
-                        selectedMonthName.substring(0, 1).toUpperCase() + selectedMonthName.substring(1),
-                        year,
-                        String.format("%.2f", valor)
-                    };
-                    model.addRow(row);
-                }
+                Object[] row = {
+                    entry.getKey(),
+                    selectedMonthName.substring(0, 1).toUpperCase() + selectedMonthName.substring(1),
+                    year,
+                    String.format("%.2f", valor)
+                };
+                model.addRow(row);
+            }
 
             float totalMensual = MonthlyReportController.calcularTotalMensual(artisanSalesMap);
             TotalMensualSales.setText(String.format("%.2f", totalMensual));
-
-
-            TotalMensualSales.setText(String.format("%.2f", totalMensual));
-
 
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al generar reporte: " + e.getMessage());
@@ -309,6 +319,14 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
         frmPrincipal.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        PrintController.imprimirTabla(
+                tblMonthlyReport,
+                "Reporte mensual de ventas",
+                TotalMensualSales.getText()
+        );
+    }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,6 +366,7 @@ public class FrmMonthlyReport extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TotalMensualSales;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cmbMonth;
     private javax.swing.JLabel jLabel1;
